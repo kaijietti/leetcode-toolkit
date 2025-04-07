@@ -21,8 +21,9 @@ export class ElementFinder {
     constructor(
         /** The CSS selector strings to look for */
         selectors: string[] = [],
-        public config: Partial<Config> = DEFAULT_CONFIG
+        public config: Partial<Config> = {}
     ) {
+        this.config = { ...DEFAULT_CONFIG, ...config };
         this.targets = selectors.map((selector) => ({
             selector,
             element: null,
