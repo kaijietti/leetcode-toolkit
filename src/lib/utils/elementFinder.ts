@@ -1,3 +1,5 @@
+import { toast } from "./toast";
+
 type Config = {
     /** Maximum time to wait in milliseconds */
     maxWaitTime: number;
@@ -7,6 +9,10 @@ type Config = {
 
 const DEFAULT_CONFIG: Partial<Config> = {
     maxWaitTime: 10000,
+    onError: (error) => {
+        console.error("Error finding elements:", error);
+        toast.error("Error finding elements: " + error.message);
+    },
 };
 
 export class ElementFinder {
