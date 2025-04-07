@@ -4,6 +4,7 @@
     import Button from "./lib/components/Button.svelte";
     import { ElementFinder } from "./lib/utils/elementFinder";
     import { copy } from "./lib/utils/copy";
+    import { htmlToMd } from "./lib/utils/htmlToMd";
 
     let titleEl: HTMLElement | null, descEl: HTMLElement | null;
     const finder = new ElementFinder(
@@ -29,7 +30,7 @@
             toast.error("Description element not found.");
             return;
         }
-        copy(descEl.innerText);
+        copy(htmlToMd(descEl));
     }
 </script>
 
