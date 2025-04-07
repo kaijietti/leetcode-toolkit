@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@jupyterlab/nbformat':
+        specifier: ^4.4.0
+        version: 4.4.0
       '@types/turndown':
         specifier: ^5.0.5
         version: 5.0.5
@@ -326,6 +329,15 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@jupyterlab/nbformat@4.4.0':
+    resolution: {integrity: sha512-TDXQmsathEz9Ljbu1GDDzqgs2YS3/PX7rqp2shYWAYwvlzypDLTD8A2E7wyIp3L+9Kir1WuHxRkhl3yW2mkvfQ==}
+
+  '@lumino/algorithm@2.0.3':
+    resolution: {integrity: sha512-DIcF7cIrGEC1Wh8DNjdwaL7IdcNs4Jj1VjO/90oHefeQPszKgc6DSfCxvbQiRanKR6tl/JL7tq4ZRPZES2oVAA==}
+
+  '@lumino/coreutils@2.2.1':
+    resolution: {integrity: sha512-yij4TnxDIum7xfFUsVvZB0oLv4shs2mNbn3juwtEIsruvVBPmurNzKX0Y8z2QetbP2AZ6MSFtBzEKsihf0H0VA==}
 
   '@mixmark-io/domino@2.2.0':
     resolution: {integrity: sha512-Y28PR25bHXUg88kCV7nivXrP2Nj2RueZ3/l/jdx6J9f8J4nsEGcgX0Qe6lt7Pa+J79+kPiJU3LguR6O/6zrLOw==}
@@ -1561,6 +1573,16 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@jupyterlab/nbformat@4.4.0':
+    dependencies:
+      '@lumino/coreutils': 2.2.1
+
+  '@lumino/algorithm@2.0.3': {}
+
+  '@lumino/coreutils@2.2.1':
+    dependencies:
+      '@lumino/algorithm': 2.0.3
 
   '@mixmark-io/domino@2.2.0': {}
 
