@@ -41,7 +41,9 @@
 <div>
     <Button onclick={copyTitle}>Copy Title</Button>
     <Button onclick={copyDescription}>Copy Description</Button>
-    <Button onclick={downloadAsJupyter}
+    <Button
+        style="color: oklch(51.1% 0.096 186.391)"
+        onclick={downloadAsJupyter}
         >Download as Jupyter Notebook (.ipynb)</Button
     >
 </div>

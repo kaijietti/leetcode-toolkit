@@ -29,6 +29,7 @@
     "dependencies": {
         "@jupyterlab/nbformat": "^4.4.0",
         "@types/turndown": "^5.0.5",
+        "remeda": "^2.21.2",
         "svelte-sonner": "^0.3.28",
         "turndown": "^7.2.0"
     },

@@ -4,9 +4,11 @@ import App from "./App.svelte";
 import { findElement } from "./lib/utils/elementFinder";
 import { CONFIG } from "./lib/utils/config";
 
+import { toKebabCase } from "remeda";
+
 const titleContainer = await findElement("div:has(> .text-title-large)");
 const app = document.createElement("div");
-app.setAttribute("id", CONFIG.APP_NAME);
+app.setAttribute("id", toKebabCase(CONFIG.APP_NAME));
 app.style.cssText = "display: contents;";
 titleContainer.parentElement?.parentElement?.insertBefore(
     app,
