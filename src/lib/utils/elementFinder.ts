@@ -1,11 +1,11 @@
 type Config = {
     /** Maximum time to wait in milliseconds */
     maxWaitTime: number;
-    onError?: (error: Error) => void;
-    onAllFound?: (els: Element[]) => void;
+    onError: (error: Error) => void;
+    onAllFound: (els: Element[]) => void;
 };
 
-const DEFAULT_CONFIG: Config = {
+const DEFAULT_CONFIG: Partial<Config> = {
     maxWaitTime: 10000,
 };
 
@@ -15,7 +15,7 @@ export class ElementFinder {
     constructor(
         /** The CSS selector strings to look for */
         selectors: string[] = [],
-        public config: Config = DEFAULT_CONFIG
+        public config: Partial<Config> = DEFAULT_CONFIG
     ) {
         this.targets = selectors.map((selector) => ({
             selector,
@@ -29,7 +29,7 @@ export class ElementFinder {
             this.#findAllElements();
 
             if (!this.#allIsFound) {
-                this.setupMutationObserver();
+                this.#setupMutationObserver();
             }
         } catch (err) {
             console.error("Error in ElementFinder:", err);
@@ -57,7 +57,7 @@ export class ElementFinder {
         return this.targets.every(({ element }) => element !== null);
     }
 
-    setupMutationObserver() {
+    #setupMutationObserver() {
         const callback: MutationCallback = (_mutations, obs) => {
             this.#findAllElements();
             // Stop observing once all elements are found

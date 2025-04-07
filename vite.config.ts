@@ -12,7 +12,7 @@ export default defineConfig({
             userscript: {
                 icon: "https://vitejs.dev/logo.svg",
                 namespace: "npm/vite-plugin-monkey",
-                match: ["*://leetcode.cn/problems/*"],
+                match: ["*://leetcode.com/problems/*"],
                 author: "eclipher",
                 version: "0.0.1",
             },
