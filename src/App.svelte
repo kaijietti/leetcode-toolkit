@@ -1,57 +1,38 @@
 <script lang="ts">
     import "./app.css";
-    import { toast, Toaster } from "./lib/utils/toast";
+    import { Toaster } from "./lib/utils/toast";
     import Button from "./lib/components/Button.svelte";
-    import { ElementFinder } from "./lib/utils/elementFinder";
+    import { findElement } from "./lib/utils/elementFinder";
     import { copy } from "./lib/utils/copy";
     import { htmlToMd } from "./lib/utils/htmlToMd";
     import { createNotebook, downloadNotebook } from "./lib/utils/jupyter";
 
-    let titleEl: HTMLElement | null;
-    let descEl: HTMLElement | null;
-    let codeEl: HTMLElement | null;
-    const finder = new ElementFinder(
-        [
-            ".text-title-large",
-            "[data-track-load='description_content']",
-            "[data-keybinding-context='1']",
-        ],
-        {
-            onAllFound([title, desc, code]) {
-                titleEl = title as HTMLElement;
-                descEl = desc as HTMLElement;
-                codeEl = code as HTMLElement;
-            },
-        }
-    );
-    finder.init();
+    const getTitle = async () =>
+        (await findElement(".text-title-large")).textContent ?? "";
+    let getDescription = async () => {
+        const el = await findElement("[data-track-load='description_content']");
+        return htmlToMd(el.innerHTML);
+    };
+    const getLanguage = async () => {
+        const codeEl = await findElement("[data-keybinding-context='1']");
+        return codeEl?.getAttribute("data-mode-id") ?? "python";
+    };
 
-    function copyTitle() {
-        if (!titleEl) {
-            toast.error("Title element not found.");
-            return;
-        }
-        copy(titleEl.innerText);
+    async function copyTitle() {
+        copy(await getTitle());
     }
-    function copyDescription() {
-        if (!descEl) {
-            toast.error("Description element not found.");
-            return;
-        }
-        copy(htmlToMd(descEl));
+    async function copyDescription() {
+        copy(await getDescription());
     }
 
-    function downloadAsJupyter() {
-        if (!titleEl || !descEl) {
-            toast.error("elements not found.");
-            return;
-        }
+    async function downloadAsJupyter() {
+        const title = await getTitle();
         const notebook = createNotebook({
-            title: titleEl.innerText,
-            description: htmlToMd(descEl.innerHTML),
-            language: codeEl?.getAttribute("data-mode-id") || "python",
+            title: title,
+            description: await getDescription(),
+            language: await getLanguage(),
         });
-        downloadNotebook(notebook, titleEl.innerText);
+        downloadNotebook(notebook, title);
     }
 </script>
 

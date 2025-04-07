@@ -2,88 +2,55 @@ import { toast } from "./toast";
 
 type Config = {
     /** Maximum time to wait in milliseconds */
-    maxWaitTime: number;
+    timeout: number;
     onError: (error: Error) => void;
-    onAllFound: (els: Element[]) => void;
 };
 
 const DEFAULT_CONFIG: Partial<Config> = {
-    maxWaitTime: 10000,
+    timeout: 10000,
     onError: (error) => {
-        console.error("Error finding elements:", error);
-        toast.error("Error finding elements: " + error.message);
+        console.error("Error finding element:", error);
+        toast.error("Error finding element: " + error.message);
     },
 };
 
-export class ElementFinder {
-    targets: { selector: string; element: Element | null }[] = [];
-
-    constructor(
-        /** The CSS selector strings to look for */
-        selectors: string[] = [],
-        public config: Partial<Config> = {}
-    ) {
-        this.config = { ...DEFAULT_CONFIG, ...config };
-        this.targets = selectors.map((selector) => ({
-            selector,
-            element: null,
-        }));
-    }
-
-    init() {
-        // First try direct check
-        try {
-            this.#findAllElements();
-
-            if (!this.#allIsFound) {
-                this.#setupMutationObserver();
+export function findElement(
+    selector: string,
+    parent = document,
+    config: Partial<Config> = {}
+) {
+    const { timeout, onError } = { ...DEFAULT_CONFIG, ...config };
+    // Added timeout
+    return new Promise<Element>((resolve, reject) => {
+        const observer = new MutationObserver((_mutations, obs) => {
+            const targetElement = parent.querySelector(selector);
+            if (targetElement) {
+                obs.disconnect();
+                resolve(targetElement);
             }
-        } catch (err) {
-            console.error("Error in ElementFinder:", err);
-            if (err instanceof Error) this.config.onError?.(err);
-            else throw err;
-        }
-    }
-
-    /** Try to find all elements by selector, and store them in `targets` if found.
-     * If all elements are found, invoke the `onAllFound` callback. */
-    #findAllElements() {
-        this.targets.forEach(({ selector, element }, index) => {
-            if (element) return;
-            this.targets[index].element = document.querySelector(selector);
         });
 
-        if (this.#allIsFound) {
-            const elements = this.targets.map((t) => t.element!);
-            this.config.onAllFound?.(elements);
-        }
-    }
-
-    /** Check if all target elements have been found */
-    get #allIsFound() {
-        return this.targets.every(({ element }) => element !== null);
-    }
-
-    #setupMutationObserver() {
-        const callback: MutationCallback = (_mutations, obs) => {
-            this.#findAllElements();
-            // Stop observing once all elements are found
-            if (this.#allIsFound) obs.disconnect();
-        };
-
-        const observer = new MutationObserver(callback);
-
-        observer.observe(document.body, {
-            childList: true, // Watch for changes in direct children
-            subtree: true, // Watch for changes in the entire subtree
+        observer.observe(parent, {
+            childList: true,
+            subtree: true,
         });
 
-        // Set a timeout to stop the observer after maxWaitTime
-        setTimeout(() => {
+        // Timeout mechanism to prevent indefinite waiting
+        const timeoutId = setTimeout(() => {
             observer.disconnect();
-            throw new Error(
-                `Timeout: Not all elements found within ${this.config.maxWaitTime}ms`
+            const error = new Error(
+                `Element "${selector}" not found within timeout (${timeout}ms)`
             );
-        }, this.config.maxWaitTime);
-    }
+            onError?.(error);
+            reject(error);
+        }, timeout);
+
+        // If the element is already present, resolve immediately
+        const initialElement = parent.querySelector(selector);
+        if (initialElement) {
+            clearTimeout(timeoutId); // Clear the timeout since we found it.
+            observer.disconnect();
+            resolve(initialElement);
+        }
+    });
 }
