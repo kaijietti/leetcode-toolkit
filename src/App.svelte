@@ -5,7 +5,7 @@
     import { ElementFinder } from "./lib/utils/elementFinder";
     import { copy } from "./lib/utils/copy";
     import { htmlToMd } from "./lib/utils/htmlToMd";
-    import { createNotebook } from "./lib/utils/jupyter";
+    import { createNotebook, downloadNotebook } from "./lib/utils/jupyter";
 
     let titleEl: HTMLElement | null;
     let descEl: HTMLElement | null;
@@ -41,7 +41,7 @@
         copy(htmlToMd(descEl));
     }
 
-    function copyAsJupyter() {
+    function downloadAsJupyter() {
         if (!titleEl || !descEl) {
             toast.error("elements not found.");
             return;
@@ -51,7 +51,7 @@
             description: htmlToMd(descEl.innerHTML),
             language: codeEl?.getAttribute("data-mode-id") || "python",
         });
-        copy(JSON.stringify(notebook));
+        downloadNotebook(notebook, titleEl.innerText);
     }
 </script>
 
@@ -60,5 +60,7 @@
 <div>
     <Button onclick={copyTitle}>Copy Title</Button>
     <Button onclick={copyDescription}>Copy Description</Button>
-    <Button onclick={copyAsJupyter}>Copy as Jupyter</Button>
+    <Button onclick={downloadAsJupyter}
+        >Download as Jupyter Notebook (.ipynb)</Button
+    >
 </div>
