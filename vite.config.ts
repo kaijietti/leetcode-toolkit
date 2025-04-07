@@ -1,11 +1,9 @@
-import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import monkey from "vite-plugin-monkey";
 
 export default defineConfig({
     plugins: [
-        tailwindcss(),
         svelte(),
         monkey({
             entry: "src/main.ts",
