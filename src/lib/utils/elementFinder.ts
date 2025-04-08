@@ -3,29 +3,22 @@ import { toast } from "./toast";
 type Config = {
     parent: Document | Element;
     timeout: number;
-    onError: (error: Error) => void;
 };
 
 export function findElement(selector: string, config: Partial<Config> = {}) {
-    const {
-        parent = document,
-        timeout = 10000,
-        onError = (error: Error) => {
-            if (error instanceof ReferenceError) {
-                toast.error(
-                    "Element not found within timeout. Please refresh the page or disable the script."
-                );
-            }
-        },
-    } = config;
+    const { parent = document, timeout = 500 } = config;
 
-    // Added timeout
     return new Promise<Element>((resolve, reject) => {
+        // If the element is already present, resolve immediately
+        const element = parent.querySelector(selector);
+        if (element) resolve(element);
+
+        // If not found, set an observer
         const observer = new MutationObserver((_mutations, obs) => {
-            const targetElement = parent.querySelector(selector);
-            if (targetElement) {
+            const element = parent.querySelector(selector);
+            if (element) {
                 obs.disconnect();
-                resolve(targetElement);
+                resolve(element);
             }
         });
 
@@ -35,21 +28,16 @@ export function findElement(selector: string, config: Partial<Config> = {}) {
         });
 
         // Timeout mechanism to prevent indefinite waiting
-        const timeoutId = setTimeout(() => {
+        setTimeout(() => {
             observer.disconnect();
-            const error = new ReferenceError(
-                `Element "${selector}" not found within timeout (${timeout}ms)`
+            toast.error(
+                "Element not found within timeout. Please refresh the page or disable the script."
             );
-            onError?.(error);
-            reject(error);
+            reject(
+                new ReferenceError(
+                    `Element "${selector}" not found within timeout (${timeout}ms)`
+                )
+            );
         }, timeout);
-
-        // If the element is already present, resolve immediately
-        const initialElement = parent.querySelector(selector);
-        if (initialElement) {
-            clearTimeout(timeoutId); // Clear the timeout since we found it.
-            observer.disconnect();
-            resolve(initialElement);
-        }
     });
 }

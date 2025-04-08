@@ -8,11 +8,9 @@
     // format on save
     document.addEventListener("keydown", async (e) => {
         const formatBtn = (await findElement(
-            "div.flex.items-center.gap-1 > button:nth-child(1)",
-            { timeout: 500 }
+            "div.flex.items-center.gap-1 > button:nth-child(1)"
         )) as HTMLButtonElement;
         if (e.ctrlKey && e.key === "s") {
-            e.preventDefault();
             formatBtn.click();
         }
     });

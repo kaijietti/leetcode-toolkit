@@ -15,7 +15,9 @@ mount(Toaster, {
 
 await state.init();
 
-const titleContainer = await findElement("div:has(> .text-title-large)");
+const titleContainer = await findElement("div:has(> .text-title-large)", {
+    timeout: 5000,
+});
 const app = document.createElement("div");
 app.setAttribute("id", toKebabCase(CONFIG.APP_NAME));
 app.style.cssText = "display: contents;";

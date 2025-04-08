@@ -1,7 +1,6 @@
 <script lang="ts" module>
     export const getTitle = async () =>
-        (await findElement(".text-title-large", { timeout: 500 }))
-            .textContent ?? "";
+        (await findElement(".text-title-large")).textContent ?? "";
 </script>
 
 <script lang="ts">
