@@ -10,7 +10,9 @@
     import { state } from "./lib/utils/state.svelte";
 
     const getLanguage = async () => {
-        const codeEl = await findElement("[data-keybinding-context='1']");
+        const codeEl = await findElement("[data-keybinding-context='1']", {
+            timeout: 500,
+        });
         return codeEl?.getAttribute("data-mode-id") ?? "python";
     };
 

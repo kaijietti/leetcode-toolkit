@@ -1,28 +1,24 @@
 import { toast } from "./toast";
 
 type Config = {
-    /** Maximum time to wait in milliseconds */
+    parent: Document | Element;
     timeout: number;
     onError: (error: Error) => void;
 };
 
-const DEFAULT_CONFIG: Partial<Config> = {
-    timeout: 10000,
-    onError: (error) => {
-        if (error instanceof ReferenceError) {
-            toast.error(
-                "Element not found within timeout. Please refresh the page or disable the script."
-            );
-        }
-    },
-};
+export function findElement(selector: string, config: Partial<Config> = {}) {
+    const {
+        parent = document,
+        timeout = 10000,
+        onError = (error: Error) => {
+            if (error instanceof ReferenceError) {
+                toast.error(
+                    "Element not found within timeout. Please refresh the page or disable the script."
+                );
+            }
+        },
+    } = config;
 
-export function findElement(
-    selector: string,
-    parent = document,
-    config: Partial<Config> = {}
-) {
-    const { timeout, onError } = { ...DEFAULT_CONFIG, ...config };
     // Added timeout
     return new Promise<Element>((resolve, reject) => {
         const observer = new MutationObserver((_mutations, obs) => {

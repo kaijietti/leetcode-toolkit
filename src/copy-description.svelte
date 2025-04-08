@@ -1,6 +1,9 @@
 <script lang="ts" module>
     export const getDescription = async () => {
-        const el = await findElement("[data-track-load='description_content']");
+        const el = await findElement(
+            "[data-track-load='description_content']",
+            { timeout: 500 }
+        );
         return htmlToMd(el.innerHTML);
     };
 </script>
