@@ -13,6 +13,8 @@ mount(Toaster, {
     props: { richColors: true, position: "top-center" },
 });
 
+await state.init();
+
 const titleContainer = await findElement("div:has(> .text-title-large)");
 const app = document.createElement("div");
 app.setAttribute("id", toKebabCase(CONFIG.APP_NAME));
@@ -21,8 +23,6 @@ titleContainer.parentElement?.parentElement?.insertBefore(
     app,
     titleContainer.parentElement
 );
-
-state.init();
 
 mount(App, {
     target: app,

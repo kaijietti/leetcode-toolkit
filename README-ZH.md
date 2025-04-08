@@ -15,7 +15,12 @@
 
 -   **复制标题**
 -   **复制描述：** 以 Markdown 格式复制问题描述，方便粘贴到您的笔记或文档中。
--   **下载为 Jupyter Notebook:** 将标题、Markdown 描述和一个代码单元捆绑到一个 `.ipynb` 文件中。
+-   **下载为 Jupyter Notebook:** 将标题、描述（Markdown）和代码编辑器的当前内容捆绑到一个 `.ipynb` 文件中。
+
+此外，还支持以下便利功能：
+
+-   **保存时格式化代码：** 按下 <kbd>Ctrl + S</kbd> 时将自动格式化代码。
+-   **解锁 IntelliSense：** 享受自动补全、悬浮建议等功能，无需购买会员。
 
 此脚本既支持 [LeetCode 全球站](https://leetcode.com)，也支持 [中国版力扣](https://leetcode.cn)。
 
@@ -23,10 +28,16 @@
 
 <table>
     <tr>
-        <td colspan="2">
+        <td>
             <figure>
                 <img src="assets/screenshot-1.png" />
-                <figcaption>LeetCode题目页面上新增的按钮</figcaption>
+                <figcaption>LeetCode 题目页面上新增的按钮</figcaption>
+            </figure>
+        </td>
+        <td>
+            <figure>
+                <img src="assets/screenshot-4.png" />
+                <figcaption>代码编辑器里的 IntelliSense</figcaption>
             </figure>
         </td>
     </tr>
@@ -41,7 +52,7 @@
             <figure>
                 <img src="assets/screenshot-3.png" />
                 <figcaption>
-                    你可以直接在 notebook 中编写和运行代码
+                    你可以直接在笔记本中编写和运行代码
                 </figcaption>
             </figure>
         </td>
@@ -67,7 +78,11 @@ Firefox 和其他浏览器）。
 
 ## 鸣谢
 
-此脚本的灵感来源于 [力扣题目转 Markdown](https://greasyfork.org/zh-CN/scripts/448601)。
+此脚本受以下项目启发：
+
+-   [LeetCode Problem to Markdown](https://greasyfork.org/en/scripts/448601).
+-   [leetcode enhanced code editor](https://greasyfork.org/en/scripts/502740-leetcode-enhanced-code-editor)
+-   [Leetcode: format on save](https://greasyfork.org/en/scripts/481927-leetcode-format-on-save)
 
 ## 许可
 

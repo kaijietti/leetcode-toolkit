@@ -14,7 +14,6 @@
         if (e.ctrlKey && e.key === "s") {
             e.preventDefault();
             formatBtn.click();
-            console.log("Format button clicked");
         }
     });
 </script>

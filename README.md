@@ -15,18 +15,31 @@ This userscript enhances the LeetCode problem page by adding three buttons:
 
 -   **Copy Title**
 -   **Copy Description:** Copies the problem description in Markdown format, making it easy to paste into your notes or documentation.
--   **Download as Jupyter Notebook:** Bundles the title, Markdown description, and a code cell into a single `.ipynb` file.
+-   **Download as Jupyter Notebook:** Bundles the title, description in Markdown, and the current content in the code editor into a single `.ipynb` file.
 
-It supports both global site of [LeetCode.com](https://leetcode.com), and [the China-specific site](https://leetcode.cn).
+Additionally, it also add these quality-of-life adjustment:
+
+-   **Format On Save:** Automatically format code when pressing <kbd>Ctrl + S</kbd>.
+-   **Unlock IntelliSense:** Enjoy autocompletion and hover suggestions without paying for premium.
+
+---
+
+The script supports both global site of [LeetCode.com](https://leetcode.com), and [the China-specific site](https://leetcode.cn).
 
 ## Screenshots
 
 <table>
     <tr>
-        <td colspan="2">
+        <td>
             <figure>
                 <img src="assets/screenshot-1.png" />
                 <figcaption>The added buttons on LeetCode problem page</figcaption>
+            </figure>
+        </td>
+        <td>
+            <figure>
+                <img src="assets/screenshot-4.png" />
+                <figcaption>IntelliSense in the code editor</figcaption>
             </figure>
         </td>
     </tr>
@@ -66,7 +79,11 @@ To use this userscript, you'll need a userscript manager like [Tampermonkey](htt
 
 ## Credits
 
-This script is inspired by [LeetCode Problem to Markdown](https://greasyfork.org/en/scripts/448601).
+This script is inspired by the following projects:
+
+-   [LeetCode Problem to Markdown](https://greasyfork.org/en/scripts/448601).
+-   [leetcode enhanced code editor](https://greasyfork.org/en/scripts/502740-leetcode-enhanced-code-editor)
+-   [Leetcode: format on save](https://greasyfork.org/en/scripts/481927-leetcode-format-on-save)
 
 ## License
 
