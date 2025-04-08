@@ -6,6 +6,12 @@ import { CONFIG } from "./lib/utils/config";
 
 import { toKebabCase } from "remeda";
 import { state } from "./lib/utils/state.svelte";
+import { Toaster } from "./lib/utils/toast";
+
+mount(Toaster, {
+    target: document.body,
+    props: { richColors: true, position: "top-center" },
+});
 
 const titleContainer = await findElement("div:has(> .text-title-large)");
 const app = document.createElement("div");

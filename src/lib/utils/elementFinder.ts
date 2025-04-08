@@ -9,8 +9,11 @@ type Config = {
 const DEFAULT_CONFIG: Partial<Config> = {
     timeout: 10000,
     onError: (error) => {
-        console.error("Error finding element:", error);
-        toast.error("Error finding element: " + error.message);
+        if (error instanceof ReferenceError) {
+            toast.error(
+                "Element not found within timeout. Please refresh the page or disable the script."
+            );
+        }
     },
 };
 
@@ -38,7 +41,7 @@ export function findElement(
         // Timeout mechanism to prevent indefinite waiting
         const timeoutId = setTimeout(() => {
             observer.disconnect();
-            const error = new Error(
+            const error = new ReferenceError(
                 `Element "${selector}" not found within timeout (${timeout}ms)`
             );
             onError?.(error);
