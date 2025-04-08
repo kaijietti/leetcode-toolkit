@@ -1,48 +1,62 @@
-# Svelte + TS + Vite
+# LeetCode Download as Jupyter Notebook
 
-This template should help get you started developing with Svelte and TypeScript in Vite.
+## Feature
 
-## Recommended IDE Setup
+This userscript enhances the LeetCode problem page by adding three buttons:
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+-   **Copy Title**
+-   **Copy Description:** Copies the problem description in Markdown format, making it easy to paste into your notes or documentation.
+-   **Download as Jupyter Notebook:** Bundles the title, Markdown description, and a code cell into a single `.ipynb` file.
 
-## Need an official Svelte framework?
+## Screenshots
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+<table>
+    <tr>
+        <td colspan="2">
+            <figure>
+                <img src="assets/screenshot-1.png" />
+                <figcaption>The added buttons on LeetCode problem page</figcaption>
+            </figure>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <figure>
+                <img src="assets/screenshot-2.png" />
+                <figcaption>The notebook in VS Code</figcaption>
+            </figure>
+        </td>
+        <td>
+            <figure>
+                <img src="assets/screenshot-3.png" />
+                <figcaption>
+                    You can write and run code directly in the notebook
+                </figcaption>
+            </figure>
+        </td>
+    </tr>
+</table>
 
-## Technical considerations
+## About Jupyter Notebook
 
-**Why use this over SvelteKit?**
+[Jupyter Notebook](https://jupyter-notebook.readthedocs.io/en/latest/) is an open-source web application that allows you to create and share documents that contain live code, equations, visualizations, and narrative text.
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
-  `vite dev` and `vite build` wouldn't work in a SvelteKit environment, for example.
+This userscript helps you transfer LeetCode problems into a Jupyter Notebook document, so you can read the problem, write and run the solution, add additional notes, all at one place on your local machine.
 
-This template contains as little as possible to get started with Vite + TypeScript + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+You can open `.ipynb` notebooks with clients such as [VS Code](https://code.visualstudio.com/docs/datascience/jupyter-notebooks). By default it supports Python, but [kernels for many other languages](https://github.com/jupyter/jupyter/wiki/Jupyter-kernels) are available too.
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
+## Installation
 
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
+To use this userscript, you'll need a userscript manager like [Tampermonkey](https://www.tampermonkey.net/) (available for Chrome, Firefox, and other browsers).
 
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
+1. Install Tampermonkey or a similar userscript manager for your browser.
+2. Download and install the userscript.
+3. Visit [a LeetCode problem page](https://leetcode.com/problems/two-sum/), and you should see the new buttons added by the userscript.
 
-**Why include `.vscode/extensions.json`?**
+## Credits
 
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
+This script is inspired by [LeetCode Problem to Markdown](https://greasyfork.org/en/scripts/448601).
 
-**Why enable `allowJs` in the TS template?**
+## License
 
-While `allowJs: false` would indeed prevent the use of `.js` files in the project, it does not prevent the use of JavaScript syntax in `.svelte` files. In addition, it would force `checkJs: false`, bringing the worst of both worlds: not being able to guarantee the entire codebase is TypeScript, and also having worse typechecking for the existing JavaScript. In addition, there are valid use cases in which a mixed codebase may be relevant.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```ts
-// store.ts
-// An extremely simple external store
-import { writable } from 'svelte/store';
-export default writable(0);
-```
+MIT License
