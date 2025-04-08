@@ -5,6 +5,7 @@ import { findElement } from "./lib/utils/elementFinder";
 import { CONFIG } from "./lib/utils/config";
 
 import { toKebabCase } from "remeda";
+import { state } from "./lib/utils/state.svelte";
 
 const titleContainer = await findElement("div:has(> .text-title-large)");
 const app = document.createElement("div");
@@ -16,10 +17,8 @@ titleContainer.parentElement?.parentElement?.insertBefore(
 );
 
 const hostname = window.location.hostname;
+state.site = hostname === "leetcode.cn" ? "cn" : "global";
 
 mount(App, {
     target: app,
-    props: {
-        site: hostname === "leetcode.cn" ? "cn" : "global",
-    },
 });

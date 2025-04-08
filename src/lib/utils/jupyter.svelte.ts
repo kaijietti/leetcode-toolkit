@@ -5,20 +5,18 @@ import type {
     MultilineString,
 } from "@jupyterlab/nbformat";
 import { toast } from "./toast";
-import type { LeetCodeSite } from "./types";
+import { state } from "./state.svelte";
 
 export function createNotebook({
     title,
     description,
     language = "python",
     url,
-    site = "global",
 }: {
     title: string;
     description: string;
     language?: string;
     url: string;
-    site?: LeetCodeSite;
 }): INotebookContent {
     const notebook: INotebookContent = {
         metadata: {
@@ -37,12 +35,12 @@ export function createNotebook({
         `# [${title}](${match ? match[0] : url})`
     );
 
-    const descriptionPrefix = site === "cn" ? "题目描述" : "Description";
+    const descriptionPrefix = state.site === "cn" ? "题目描述" : "Description";
     const descriptionCell = createMarkdownCell(
         `## ${descriptionPrefix} \n\n` + description
     );
 
-    const solutionPrefix = site === "cn" ? "解答" : "Solution";
+    const solutionPrefix = state.site === "cn" ? "解答" : "Solution";
     const partitionCell = createMarkdownCell([
         "---\n\n",
         `## ${solutionPrefix}`,
@@ -70,11 +68,7 @@ function createCodeCell(content: MultilineString): ICodeCell {
     };
 }
 
-export function downloadNotebook(
-    notebook: INotebookContent,
-    filename: string,
-    site: LeetCodeSite = "global"
-) {
+export function downloadNotebook(notebook: INotebookContent, filename: string) {
     const blob = new Blob([JSON.stringify(notebook)], {
         type: "application/x-ipynb+json",
     });
@@ -87,7 +81,7 @@ export function downloadNotebook(
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
     toast.success(
-        site === "cn"
+        state.site === "cn"
             ? "已下载为 Jupyter Notebook!"
             : "Downloaded as Jupyter Notebook!"
     );
