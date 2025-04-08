@@ -1,6 +1,6 @@
 <div align="center" width="100%">
 
-# LeetCode Download as Jupyter Notebook
+# LeetCode Toolkit
 
 **English** | [Chinese](/README-ZH.md)
 
@@ -24,7 +24,7 @@ Additionally, it also add these quality-of-life adjustment:
 
 ---
 
-The script supports both global site of [LeetCode.com](https://leetcode.com), and [the China-specific site](https://leetcode.cn).
+The script supports both the US version of [LeetCode.com](https://leetcode.com), and [the China version](https://leetcode.cn).
 
 ## Screenshots
 
@@ -75,7 +75,7 @@ To use this userscript, you'll need a userscript manager like [Tampermonkey](htt
 
 1. Install Tampermonkey or a similar userscript manager for your browser.
 2. Download and install the userscript.
-3. Visit [a LeetCode problem page](https://leetcode.com/problems/two-sum/), and you should see the new buttons added by the userscript.
+3. Visit [a LeetCode problem page](https://leetcode.com/problems/two-sum/), and you should see the new features added by the script.
 
 ## Credits
 

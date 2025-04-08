@@ -1,6 +1,6 @@
 <div align="center" width="100%">
 
-# 把力扣题目下载为 Jupyter Notebook
+# LeetCode 工具箱
 
 [English](/README.md) | **Chinese**
 
@@ -22,7 +22,7 @@
 -   **保存时格式化代码：** 按下 <kbd>Ctrl + S</kbd> 时将自动格式化代码。
 -   **解锁 IntelliSense：** 享受自动补全、悬浮建议等功能，无需购买会员。
 
-此脚本既支持 [LeetCode 全球站](https://leetcode.com)，也支持 [中国版力扣](https://leetcode.cn)。
+此脚本既支持 [LeetCode 美国站](https://leetcode.com)，也支持 [力扣中国站](https://leetcode.cn)。
 
 ## 截图
 
@@ -69,12 +69,11 @@
 
 ## 安装
 
-要使用此用户脚本，您需要一个像 [Tampermonkey](https://www.tampermonkey.net/) 这样的用户脚本管理器（适用于 Chrome、
-Firefox 和其他浏览器）。
+要使用此用户脚本，您需要一个像 [Tampermonkey](https://www.tampermonkey.net/) 这样的用户脚本管理器（适用于 Chrome、Firefox 和其他浏览器）。
 
 1. 为您的浏览器安装 Tampermonkey 或类似的用户脚本管理器。
 2. 下载并安装脚本。
-3. 访问[一个力扣问题页面](https://leetcode.cn/problems/two-sum/)，您应该会看到此脚本添加的新按钮。
+3. 访问[一个 LeetCode 问题页面](https://leetcode.cn/problems/two-sum/)，您应该会看到此脚本添加的新功能。
 
 ## 鸣谢
 
