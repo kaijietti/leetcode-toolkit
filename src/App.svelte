@@ -9,7 +9,7 @@
 
     const getTitle = async () =>
         (await findElement(".text-title-large")).textContent ?? "";
-    let getDescription = async () => {
+    const getDescription = async () => {
         const el = await findElement("[data-track-load='description_content']");
         return htmlToMd(el.innerHTML);
     };
@@ -31,6 +31,7 @@
             title: title,
             description: await getDescription(),
             language: await getLanguage(),
+            url: window.location.href,
         });
         downloadNotebook(notebook, title);
     }

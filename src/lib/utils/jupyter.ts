@@ -10,10 +10,12 @@ export function createNotebook({
     title,
     description,
     language = "python",
+    url,
 }: {
     title: string;
     description: string;
     language?: string;
+    url: string;
 }): INotebookContent {
     const notebook: INotebookContent = {
         metadata: {
@@ -25,7 +27,11 @@ export function createNotebook({
         nbformat_minor: 10,
         cells: [],
     };
-    const titleCell = createMarkdownCell("# " + title);
+    const regex = /^(https:\/\/leetcode\.com\/problems\/[a-zA-Z0-9_-]+)/;
+    const match = url.match(regex);
+    const titleCell = createMarkdownCell(
+        `# [${title}](${match ? match[0] : url})`
+    );
     const descriptionCell = createMarkdownCell(
         "## Description \n\n" + description
     );
