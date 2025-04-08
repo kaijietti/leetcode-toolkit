@@ -1,6 +1,5 @@
 <script lang="ts">
     import Button from "./lib/components/Button.svelte";
-    import { findElement } from "./lib/utils/elementFinder";
     import {
         createNotebook,
         downloadNotebook,
@@ -9,11 +8,8 @@
     import { getTitle } from "./copy-title.svelte";
     import { state } from "./lib/utils/state.svelte";
 
-    const getLanguage = async () => {
-        const codeEl = await findElement("[data-keybinding-context='1']", {
-            timeout: 500,
-        });
-        return codeEl?.getAttribute("data-mode-id") ?? "python";
+    const getLanguage = () => {
+        return state.editor?.getModel()?.getLanguageId() ?? "python";
     };
 
     async function downloadAsJupyter() {
@@ -21,7 +17,7 @@
         const notebook = createNotebook({
             title: title,
             description: await getDescription(),
-            language: await getLanguage(),
+            language: getLanguage(),
             url: window.location.href,
         });
         downloadNotebook(notebook, title);
