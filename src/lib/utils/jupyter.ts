@@ -5,17 +5,20 @@ import type {
     MultilineString,
 } from "@jupyterlab/nbformat";
 import { toast } from "./toast";
+import type { LeetCodeSite } from "./types";
 
 export function createNotebook({
     title,
     description,
     language = "python",
     url,
+    site = "global",
 }: {
     title: string;
     description: string;
     language?: string;
     url: string;
+    site?: LeetCodeSite;
 }): INotebookContent {
     const notebook: INotebookContent = {
         metadata: {
@@ -27,15 +30,23 @@ export function createNotebook({
         nbformat_minor: 10,
         cells: [],
     };
-    const regex = /^(https:\/\/leetcode\.com\/problems\/[a-zA-Z0-9_-]+)/;
+    const regex =
+        /^(https:\/\/(leetcode\.com|leetcode\.cn)\/problems\/[a-zA-Z0-9_-]+)/;
     const match = url.match(regex);
     const titleCell = createMarkdownCell(
         `# [${title}](${match ? match[0] : url})`
     );
+
+    const descriptionPrefix = site === "cn" ? "题目描述" : "Description";
     const descriptionCell = createMarkdownCell(
-        "## Description \n\n" + description
+        `## ${descriptionPrefix} \n\n` + description
     );
-    const partitionCell = createMarkdownCell(["---\n\n", "## Solution"]);
+
+    const solutionPrefix = site === "cn" ? "解答" : "Solution";
+    const partitionCell = createMarkdownCell([
+        "---\n\n",
+        `## ${solutionPrefix}`,
+    ]);
     const codeCell = createCodeCell("");
     notebook.cells.push(titleCell, descriptionCell, partitionCell, codeCell);
     return notebook;
@@ -59,7 +70,11 @@ function createCodeCell(content: MultilineString): ICodeCell {
     };
 }
 
-export function downloadNotebook(notebook: INotebookContent, filename: string) {
+export function downloadNotebook(
+    notebook: INotebookContent,
+    filename: string,
+    site: LeetCodeSite = "global"
+) {
     const blob = new Blob([JSON.stringify(notebook)], {
         type: "application/x-ipynb+json",
     });
@@ -71,5 +86,9 @@ export function downloadNotebook(notebook: INotebookContent, filename: string) {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    toast.success("Downloaded as Jupyter Notebook!");
+    toast.success(
+        site === "cn"
+            ? "已下载为 Jupyter Notebook!"
+            : "Downloaded as Jupyter Notebook!"
+    );
 }

@@ -6,6 +6,9 @@
     import { copy } from "./lib/utils/copy";
     import { htmlToMd } from "./lib/utils/htmlToMd";
     import { createNotebook, downloadNotebook } from "./lib/utils/jupyter";
+    import type { LeetCodeSite } from "./lib/utils/types";
+
+    let { site = "global" }: { site: LeetCodeSite } = $props();
 
     const getTitle = async () =>
         (await findElement(".text-title-large")).textContent ?? "";
@@ -19,10 +22,10 @@
     };
 
     async function copyTitle() {
-        copy(await getTitle());
+        copy(await getTitle(), site);
     }
     async function copyDescription() {
-        copy(await getDescription());
+        copy(await getDescription(), site);
     }
 
     async function downloadAsJupyter() {
@@ -32,19 +35,26 @@
             description: await getDescription(),
             language: await getLanguage(),
             url: window.location.href,
+            site,
         });
-        downloadNotebook(notebook, title);
+        downloadNotebook(notebook, title, site);
     }
 </script>
 
 <Toaster richColors position="top-center" />
 
 <div>
-    <Button onclick={copyTitle}>Copy Title</Button>
-    <Button onclick={copyDescription}>Copy Description</Button>
+    <Button onclick={copyTitle}>
+        {site === "cn" ? "复制标题" : "Copy Title"}
+    </Button>
+    <Button onclick={copyDescription}>
+        {site === "cn" ? "复制描述" : "Copy Description"}
+    </Button>
     <Button
         style="color: oklch(51.1% 0.096 186.391)"
         onclick={downloadAsJupyter}
-        >Download as Jupyter Notebook (.ipynb)</Button
+        >{site === "cn"
+            ? "下载为 Jupyter Notebook (.ipynb)"
+            : "Download as Jupyter Notebook (.ipynb)"}</Button
     >
 </div>

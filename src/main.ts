@@ -14,4 +14,12 @@ titleContainer.parentElement?.parentElement?.insertBefore(
     app,
     titleContainer.parentElement
 );
-mount(App, { target: app });
+
+const hostname = window.location.hostname;
+
+mount(App, {
+    target: app,
+    props: {
+        site: hostname === "leetcode.cn" ? "cn" : "global",
+    },
+});

@@ -1,13 +1,15 @@
 import { toast } from "./toast";
+import type { LeetCodeSite } from "./types";
 
-export async function copy(text: string) {
+export async function copy(text: string, site: LeetCodeSite = "global") {
     try {
         await navigator.clipboard.writeText(text);
-        toast.success("Copied to clipboard!");
+        toast.success(site === "cn" ? "复制到剪贴板!" : "Copied to clipboard!");
     } catch (err) {
         if (err instanceof Error) {
-            toast.error("Failed to copy to clipboard: " + err.message);
-            console.error("Failed to copy to clipboard: " + err);
+            const errorMessage = site === "cn" ? "复制失败" : "Failed to copy";
+            toast.error(errorMessage + ": " + err.message);
+            console.error(errorMessage + err);
         } else throw err;
     }
 }

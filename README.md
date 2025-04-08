@@ -2,6 +2,8 @@
 
 # LeetCode Download as Jupyter Notebook
 
+**English** | [Chinese](/README-ZH.md)
+
 <a href="https://greasyfork.org/en/scripts/532158"><img alt="Greasy Fork License" src="https://img.shields.io/greasyfork/v/532158"></a>
 ![Greasy Fork License](https://img.shields.io/greasyfork/l/532158)
 
@@ -14,6 +16,8 @@ This userscript enhances the LeetCode problem page by adding three buttons:
 -   **Copy Title**
 -   **Copy Description:** Copies the problem description in Markdown format, making it easy to paste into your notes or documentation.
 -   **Download as Jupyter Notebook:** Bundles the title, Markdown description, and a code cell into a single `.ipynb` file.
+
+It supports both global site of [LeetCode.com](https://leetcode.com), and [the China-specific site](https://leetcode.cn).
 
 ## Screenshots
 
