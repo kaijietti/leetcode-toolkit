@@ -45,7 +45,7 @@ export function createNotebook({
         "---\n\n",
         `## ${solutionPrefix}`,
     ]);
-    const codeCell = createCodeCell("");
+    const codeCell = createCodeCell(state.editor?.getModel()?.getValue() ?? "");
     notebook.cells.push(titleCell, descriptionCell, partitionCell, codeCell);
     return notebook;
 }
