@@ -1,5 +1,5 @@
 import type { editor } from "monaco-editor";
-import { waitForMonaco } from "./intellisense";
+import { findMonacoEditor, patchMonaco } from "./intellisense";
 
 class State {
     site: "global" | "cn" = "global";
@@ -9,7 +9,8 @@ class State {
         const hostname = window.location.hostname;
         this.site = hostname === "leetcode.cn" ? "cn" : "global";
 
-        await waitForMonaco();
+        this.editor = await findMonacoEditor();
+        patchMonaco(this.editor);
     }
 }
 
