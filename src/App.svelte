@@ -3,15 +3,20 @@
     import CopyTitle from "./copy-title.svelte";
     import CopyDescription from "./copy-description.svelte";
     import DownloadAsJupyter from "./download-as-jupyter.svelte";
-    import { findElement } from "./lib/utils/elementFinder";
+    import { state } from "./lib/utils/state.svelte";
+    import { toast } from "svelte-sonner";
 
     // format on save
-    document.addEventListener("keydown", async (e) => {
-        const formatBtn = (await findElement(
-            "div.flex.items-center.gap-1 > button:nth-child(1)"
-        )) as HTMLButtonElement;
-        if (e.ctrlKey && e.key === "s") {
-            formatBtn.click();
+    document.addEventListener("keydown", async () => {
+        try {
+            await state.editor
+                ?.getAction("editor.action.formatDocument")
+                ?.run();
+        } catch (err) {
+            console.error(err);
+            if (err instanceof Error) {
+                toast.error("Failed to format code:" + err.message);
+            }
         }
     });
 </script>
