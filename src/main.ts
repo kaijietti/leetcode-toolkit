@@ -21,10 +21,7 @@ const titleContainer = await findElement("div:has(> .text-title-large)", {
 const app = document.createElement("div");
 app.setAttribute("id", toKebabCase(CONFIG.APP_NAME));
 app.style.cssText = "display: contents;";
-titleContainer.parentElement?.parentElement?.insertBefore(
-    app,
-    titleContainer.parentElement
-);
+titleContainer.parentElement?.before(app);
 
 mount(App, {
     target: app,
