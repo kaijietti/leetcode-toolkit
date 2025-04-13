@@ -1,13 +1,20 @@
 <div align="center" width="100%">
 
-# LeetCode Toolkit
+# LeetCode Toolkit <!-- omit from toc -->
 
-**English** | [Chinese](/README-ZH.md)
+**English** | [简体中文](/README-ZH.md)
 
 <a href="https://greasyfork.org/en/scripts/532158"><img alt="Greasy Fork License" src="https://img.shields.io/greasyfork/v/532158"></a>
 ![Greasy Fork License](https://img.shields.io/greasyfork/l/532158)
 
 </div>
+
+-   [Feature](#feature)
+-   [Screenshots](#screenshots)
+-   [About Jupyter Notebook](#about-jupyter-notebook)
+-   [Installation](#installation)
+-   [Credits](#credits)
+-   [License](#license)
 
 ## Feature
 
@@ -71,7 +78,7 @@ You can open `.ipynb` notebooks with clients such as [VS Code](https://code.visu
 To use this userscript, you'll need a userscript manager like [Tampermonkey](https://www.tampermonkey.net/) (available for Chrome, Firefox, and other browsers).
 
 1. Install Tampermonkey or a similar userscript manager for your browser.
-2. Download and install the userscript.
+2. Go to [the GreasyFork Page](https://greasyfork.org/en/scripts/532158), and click on the "Install this script" button.
 3. Visit [a LeetCode problem page](https://leetcode.com/problems/two-sum/), and you should see the new features added by the script.
 
 ## Credits

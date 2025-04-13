@@ -1,13 +1,20 @@
 <div align="center" width="100%">
 
-# LeetCode 工具箱
+# LeetCode 工具箱 <!-- omit from toc -->
 
-[English](/README.md) | **Chinese**
+[English](/README.md) | **简体中文**
 
 <a href="https://greasyfork.org/zh-CN/scripts/532158"><img alt="Greasy Fork License" src="https://img.shields.io/greasyfork/v/532158"></a>
 ![Greasy Fork License](https://img.shields.io/greasyfork/l/532158)
 
 </div>
+
+-   [特性](#特性)
+-   [截图](#截图)
+-   [关于 Jupyter Notebook](#关于-jupyter-notebook)
+-   [安装](#安装)
+-   [鸣谢](#鸣谢)
+-   [许可](#许可)
 
 ## 特性
 
@@ -62,7 +69,7 @@
 
 [Jupyter Notebook](https://jupyter-notebook.readthedocs.io/en/latest/)是一个开源 Web 应用程序，允许您创建和共享包含实时代码、公式、可视化和叙述文本的文档。
 
-这个用户脚本可以帮助你将力扣题目转换成 Jupyter Notebook 文档,这样你就可以在本地机器上的同一处阅读题目、编写和运行解决方案、添加额外注释。
+这个用户脚本可以帮助你将力扣题目转换成 Jupyter Notebook 文档，这样你就可以在本地机器上的同一处阅读题目、编写和运行解决方案、添加额外注释。
 
 你可以使用诸如 [VS Code](https://code.visualstudio.com/docs/datascience/jupyter-notebooks) 之类的客户端打开`.ipynb` 笔记本。默认情况下，它支持 Python，但也提供[许多其他语言的内核](https://github.com/jupyter/jupyter/wiki/Jupyter-kernels)。
 
@@ -71,7 +78,7 @@
 要使用此用户脚本，您需要一个像 [Tampermonkey](https://www.tampermonkey.net/) 这样的用户脚本管理器（适用于 Chrome、Firefox 和其他浏览器）。
 
 1. 为您的浏览器安装 Tampermonkey 或类似的用户脚本管理器。
-2. 下载并安装脚本。
+2. 前往 [GreasyFork 页面](https://greasyfork.org/zh-CN/scripts/532158)，点击“安装此脚本”按钮。
 3. 访问[一个 LeetCode 问题页面](https://leetcode.cn/problems/two-sum/)，您应该会看到此脚本添加的新功能。
 
 ## 鸣谢
