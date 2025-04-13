@@ -11,18 +11,17 @@
 
 ## 特性
 
-这个用户脚本通过添加三个按钮来增强 LeetCode 问题页面:
+该用户脚本通过各种调整和添加增强了 LeetCode 问题页面。它既支持 [LeetCode 美国站](https://leetcode.com)，也支持 [力扣中国站](https://leetcode.cn)。
 
--   **复制标题**
--   **复制描述：** 以 Markdown 格式复制问题描述，方便粘贴到您的笔记或文档中。
--   **下载为 Jupyter Notebook:** 将标题、描述（Markdown）和代码编辑器的当前内容捆绑到一个 `.ipynb` 文件中。
-
-此外，还支持以下便利功能：
-
--   **保存时格式化代码：** 按下 <kbd>Ctrl + S</kbd> 时将自动格式化代码。
--   **解锁 IntelliSense：** 享受自动补全、悬浮建议等功能，无需购买会员。
-
-此脚本既支持 [LeetCode 美国站](https://leetcode.com)，也支持 [力扣中国站](https://leetcode.cn)。
+-   在问题描述的顶部，添加了这些按钮：
+    -   **复制标题**
+    -   **复制描述：** 以 Markdown 格式复制问题描述，方便粘贴到您的笔记或文档中。
+    -   **下载为 Jupyter Notebook:** 将标题、描述（Markdown）和代码编辑器的当前内容捆绑到一个 `.ipynb` 文件中。
+    -   **寻找官方题解**：打开当前问题的官方题解截图，只要该截图存在于[Leetcode Screenshotter](https://github.com/akhilkammila/leetcode-screenshotter) repo 中。
+        -   此功能仅供美国站，因为中国站似乎并不需要会员就能查看官方题解。
+-   便利功能：
+    -   **保存时格式化代码：** 按下 <kbd>Ctrl + S</kbd> 时将自动格式化代码。
+    -   **解锁 IntelliSense：** 享受自动补全、悬浮建议等功能，无需购买会员。
 
 ## 截图
 
@@ -79,7 +78,8 @@
 
 此脚本受以下项目启发：
 
--   [LeetCode Problem to Markdown](https://greasyfork.org/en/scripts/448601).
+-   [Leetcode Screenshotter](https://github.com/akhilkammila/leetcode-screenshotter)
+-   [LeetCode Problem to Markdown](https://greasyfork.org/en/scripts/448601)
 -   [leetcode enhanced code editor](https://greasyfork.org/en/scripts/502740-leetcode-enhanced-code-editor)
 -   [Leetcode: format on save](https://greasyfork.org/en/scripts/481927-leetcode-format-on-save)
 

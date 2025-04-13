@@ -5,6 +5,7 @@
     import DownloadAsJupyter from "./download-as-jupyter.svelte";
     import { state } from "./lib/utils/state.svelte";
     import { toast } from "svelte-sonner";
+    import FindEditorialScreenshot from "./find-editorial-screenshot.svelte";
 
     // format on save
     document.addEventListener("keydown", async () => {
@@ -25,4 +26,7 @@
     <CopyTitle />
     <CopyDescription />
     <DownloadAsJupyter />
+    {#if state.site === "global"}
+        <FindEditorialScreenshot />
+    {/if}
 </div>
