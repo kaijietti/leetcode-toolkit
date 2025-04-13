@@ -15,8 +15,15 @@ mount(Toaster, {
 
 await state.init();
 
+// waiting indefinitely until description tab is loaded AND not hidden
+const descriptionTab = await findElement("[data-layout-path='/ts0/t0']", {
+    timeout: 0,
+    additionalRule: (el) => (el as HTMLElement).style.display !== "none",
+});
+console.log("description tab is active!");
+
 const titleContainer = await findElement("div:has(> .text-title-large)", {
-    timeout: 5000,
+    parent: descriptionTab,
 });
 const app = document.createElement("div");
 app.setAttribute("id", toKebabCase(CONFIG.APP_NAME));
