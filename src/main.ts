@@ -7,6 +7,9 @@ import { CONFIG } from "./lib/utils/config";
 import { toKebabCase } from "remeda";
 import { state } from "./lib/utils/state.svelte";
 import { Toaster } from "./lib/utils/toast";
+import { GM_registerMenuCommand } from "$";
+
+import { downloadEditorial } from "./lib/utils/editorial-saver";
 
 mount(Toaster, {
     target: document.body,
@@ -14,6 +17,12 @@ mount(Toaster, {
 });
 
 await state.init();
+
+if (state.site === "global") {
+    GM_registerMenuCommand("Download Editorial (Experimental)", () =>
+        downloadEditorial()
+    );
+}
 
 // waiting indefinitely until description tab is loaded AND not hidden
 const descriptionTab = await findElement("[data-layout-path='/ts0/t0']", {

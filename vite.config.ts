@@ -13,7 +13,7 @@ export default defineConfig({
                     "zh-CN": "LeetCode工具箱",
                 },
                 description: {
-                    "": "Copy problem as Markdown, Download as Jupyter Notebook, Format on Save, Unlock Editorial & IntelliSense",
+                    "": "Copy problem as Markdown, Download as Jupyter Notebook, Format on Save, Unlock IntelliSense, Find & Save Editorial",
                     "zh-CN":
                         "复制题目为 Markdown | 下载为 Jupyter Notebook | 保存时自动格式化 | 免费自动补全",
                 },
@@ -29,7 +29,7 @@ export default defineConfig({
                     "*://leetcode.com/problems/*/post-solution/*",
                     "*://leetcode.cn/problems/*/post-solution/*", // untested
                 ],
-                version: "2.1.0",
+                version: "2.2.0",
                 license: "MIT",
                 icon: "https://www.google.com/s2/favicons?sz=64&domain=leetcode.com",
                 resource: {

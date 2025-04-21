@@ -24,11 +24,17 @@
     -   **复制标题**
     -   **复制描述：** 以 Markdown 格式复制问题描述，方便粘贴到您的笔记或文档中。
     -   **下载为 Jupyter Notebook:** 将标题、描述（Markdown）和代码编辑器的当前内容捆绑到一个 `.ipynb` 文件中。
-    -   **寻找官方题解**：打开当前问题的官方题解截图，只要该截图存在于[Leetcode Screenshotter](https://github.com/akhilkammila/leetcode-screenshotter) repo 中。
-        -   此功能仅供美国站，因为中国站似乎并不需要会员就能查看官方题解。
+    -   **寻找官方题解 (\*)**：打开当前问题的官方题解截图，只要该截图存在于[Leetcode Screenshotter](https://github.com/akhilkammila/leetcode-screenshotter) repo 中。
 -   便利功能：
     -   **保存时格式化代码：** 按下 <kbd>Ctrl + S</kbd> 时将自动格式化代码。
     -   **解锁 IntelliSense：** 享受自动补全、悬浮建议等功能，无需购买会员。
+-   实验性：
+    -   **下载官方题解(\*)**：可以在用户脚本管理器菜单（右键菜单或浏览器工具栏的扩展图标）下找到此命令。如果你能访问某篇官方题解，点击命令后题解会被保存为 `.md` 文件。此功能目前存在以下限制：
+        -   题解中的代码将保存为 Leetcode Playground 的链接。
+        -   数学表达式将显示为纯文本。
+        -   视频将被跳过。
+
+> (\*) 官方题解相关功能仅供美国站，因为中国站似乎并不需要会员就能查看官方题解。
 
 ## 截图
 
