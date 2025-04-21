@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@joplin/turndown-plugin-gfm':
+        specifier: ^1.0.61
+        version: 1.0.61
       '@types/turndown':
         specifier: ^5.0.5
         version: 5.0.5
@@ -296,6 +299,9 @@ packages:
   '@humanwhocodes/retry@0.4.2':
     resolution: {integrity: sha512-xeO57FpIu4p1Ri3Jq/EXq4ClRm86dVF2z/+kvFnyqVYRavTZmaFaUBbWCOuuTh0o/g7DSsk6kc2vrS4Vl5oPOQ==}
     engines: {node: '>=18.18'}
+
+  '@joplin/turndown-plugin-gfm@1.0.61':
+    resolution: {integrity: sha512-m5PNP1OkktlGgmFI7r/HWON/vQA56GCiM1oTWYkY2JFc28Uc8yHj0nT46pahDyU8uRYPj4TXnxLjQzDDJ11i7w==}
 
   '@jridgewell/gen-mapping@0.3.8':
     resolution: {integrity: sha512-imAbBGkb+ebQyxKgzv5Hu2nmROxoDOXHh80evxdoXNOrvAnVx7zimzc1Oo5h9RlfV4vPXaE2iM5pOFbvOCClWA==}
@@ -1415,6 +1421,8 @@ snapshots:
   '@humanwhocodes/retry@0.3.1': {}
 
   '@humanwhocodes/retry@0.4.2': {}
+
+  '@joplin/turndown-plugin-gfm@1.0.61': {}
 
   '@jridgewell/gen-mapping@0.3.8':
     dependencies:

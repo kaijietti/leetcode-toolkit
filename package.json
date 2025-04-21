@@ -29,6 +29,7 @@
         "vite-plugin-monkey": "^5.0.3"
     },
     "dependencies": {
+        "@joplin/turndown-plugin-gfm": "^1.0.61",
         "@types/turndown": "^5.0.5",
         "remeda": "^2.21.2",
         "svelte-sonner": "^0.3.28",
