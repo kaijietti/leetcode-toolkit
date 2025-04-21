@@ -4,8 +4,8 @@ import type {
     IMarkdownCell,
     MultilineString,
 } from "@jupyterlab/nbformat";
-import { toast } from "./toast";
 import { state } from "./state.svelte";
+import { downloadFile } from "./download-file";
 
 export function createNotebook({
     title,
@@ -72,17 +72,5 @@ export function downloadNotebook(notebook: INotebookContent, filename: string) {
     const blob = new Blob([JSON.stringify(notebook)], {
         type: "application/x-ipynb+json",
     });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = filename + ".ipynb";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    toast.success(
-        state.site === "cn"
-            ? "已下载为 Jupyter Notebook!"
-            : "Downloaded as Jupyter Notebook!"
-    );
+    downloadFile(blob, filename, "ipynb");
 }
