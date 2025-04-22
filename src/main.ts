@@ -5,7 +5,7 @@ import { findElement } from "./lib/utils/elementFinder";
 import { CONFIG } from "./lib/config";
 
 import { toKebabCase } from "remeda";
-import { state } from "./lib/state.svelte";
+import { state } from "./lib/state";
 import { Toaster } from "./lib/utils/toast";
 import { GM_registerMenuCommand } from "$";
 
@@ -32,7 +32,6 @@ const descriptionTab = await findElement(
         additionalRule: (el) => (el as HTMLElement).style.display !== "none",
     }
 );
-console.log("description tab is active!");
 
 const titleContainer = await findElement("div:has(> .text-title-large)", {
     parent: descriptionTab,

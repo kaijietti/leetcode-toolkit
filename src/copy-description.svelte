@@ -7,10 +7,10 @@
 
 <script lang="ts">
     import Button from "./lib/components/Button.svelte";
-    import { copy } from "./lib/utils/copy.svelte";
+    import { copy } from "./lib/utils/copy";
     import { findElement } from "./lib/utils/elementFinder";
     import { htmlToMd } from "./lib/utils/htmlToMd";
-    import { state } from "./lib/state.svelte";
+    import { state } from "./lib/state";
 
     async function copyDescription() {
         copy(await getDescription());

@@ -1,5 +1,5 @@
 import { toast } from "./toast";
-import { state } from "../state.svelte";
+import { state } from "../state";
 
 export async function copy(text: string) {
     try {

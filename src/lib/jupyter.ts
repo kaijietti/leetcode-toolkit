@@ -4,7 +4,7 @@ import type {
     IMarkdownCell,
     MultilineString,
 } from "@jupyterlab/nbformat";
-import { state } from "./state.svelte";
+import { state } from "./state";
 import { downloadFile } from "./utils/download-file";
 
 export function createNotebook({

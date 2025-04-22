@@ -1,9 +1,9 @@
 <script lang="ts">
     import Button from "./lib/components/Button.svelte";
-    import { createNotebook, downloadNotebook } from "./lib/jupyter.svelte";
+    import { createNotebook, downloadNotebook } from "./lib/jupyter";
     import { getDescription } from "./copy-description.svelte";
     import { getTitle } from "./copy-title.svelte";
-    import { state } from "./lib/state.svelte";
+    import { state } from "./lib/state";
 
     const getLanguage = () => {
         return state.editor?.getModel()?.getLanguageId() ?? "python";
