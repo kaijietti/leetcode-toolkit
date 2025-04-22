@@ -25,8 +25,8 @@ turndown.addRule("save-playground-link", {
 export async function downloadEditorial() {
     const titleEl = await findElement("#editorial-quick-navigation");
     const editorialEl = await findElement(
-        "[data-layout-path='/ts0/t1'] div.WRmCx"
-    ); // this selector is not reliable
+        ".flexlayout__tab:has(#editorial-quick-navigation) div.WRmCx"
+    ); // `div.WRmCx` part is not reliable
     const editorial = htmlToMd(editorialEl.innerHTML, turndown);
     const blob = new Blob([editorial], {
         type: "text/markdown; charset=UTF-8",

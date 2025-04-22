@@ -25,10 +25,13 @@ if (state.site === "global") {
 }
 
 // waiting indefinitely until description tab is loaded AND not hidden
-const descriptionTab = await findElement("[data-layout-path='/ts0/t0']", {
-    timeout: 0,
-    additionalRule: (el) => (el as HTMLElement).style.display !== "none",
-});
+const descriptionTab = await findElement(
+    ".flexlayout__tab:has([data-track-load='description_content'])",
+    {
+        timeout: 0,
+        additionalRule: (el) => (el as HTMLElement).style.display !== "none",
+    }
+);
 console.log("description tab is active!");
 
 const titleContainer = await findElement("div:has(> .text-title-large)", {

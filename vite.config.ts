@@ -18,8 +18,8 @@ export default defineConfig({
                         "复制题目为 Markdown | 下载为 Jupyter Notebook | 保存时自动格式化 | 免费自动补全",
                 },
                 author: "eclipher",
-                namespace: "https://github.com/eclipher/leetcode-jupyter",
-                homepage: "https://github.com/eclipher/leetcode-jupyter",
+                namespace: "https://github.com/eclipher/leetcode-toolkit",
+                homepage: "https://github.com/eclipher/leetcode-toolkit",
                 match: [
                     "*://leetcode.com/problems/*",
                     "*://leetcode.cn/problems/*",
@@ -29,7 +29,7 @@ export default defineConfig({
                     "*://leetcode.com/problems/*/post-solution/*",
                     "*://leetcode.cn/problems/*/post-solution/*", // untested
                 ],
-                version: "2.2.0",
+                version: "2.2.1",
                 license: "MIT",
                 icon: "https://www.google.com/s2/favicons?sz=64&domain=leetcode.com",
                 resource: {
