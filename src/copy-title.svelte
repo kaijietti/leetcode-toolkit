@@ -8,7 +8,7 @@
     import Button from "./lib/components/Button.svelte";
     import { findElement } from "./lib/utils/elementFinder";
     import { copy } from "./lib/utils/copy.svelte";
-    import { state } from "./lib/utils/state.svelte";
+    import { state } from "./lib/state.svelte";
 
     async function copyTitle() {
         copy(await getTitle());

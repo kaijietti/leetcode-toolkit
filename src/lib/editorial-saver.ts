@@ -1,6 +1,6 @@
-import { downloadFile } from "./download-file";
-import { findElement } from "./elementFinder";
-import { htmlToMd, createTurndownService } from "./htmlToMd";
+import { downloadFile } from "./utils/download-file";
+import { findElement } from "./utils/elementFinder";
+import { htmlToMd, createTurndownService } from "./utils/htmlToMd";
 
 const turndown = createTurndownService();
 // remove the link before section heading in LeetCode editorials

@@ -2,14 +2,14 @@ import { mount } from "svelte";
 import "./app.css";
 import App from "./App.svelte";
 import { findElement } from "./lib/utils/elementFinder";
-import { CONFIG } from "./lib/utils/config";
+import { CONFIG } from "./lib/config";
 
 import { toKebabCase } from "remeda";
-import { state } from "./lib/utils/state.svelte";
+import { state } from "./lib/state.svelte";
 import { Toaster } from "./lib/utils/toast";
 import { GM_registerMenuCommand } from "$";
 
-import { downloadEditorial } from "./lib/utils/editorial-saver";
+import { downloadEditorial } from "./lib/editorial-saver";
 
 mount(Toaster, {
     target: document.body,

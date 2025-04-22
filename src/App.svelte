@@ -3,7 +3,7 @@
     import CopyTitle from "./copy-title.svelte";
     import CopyDescription from "./copy-description.svelte";
     import DownloadAsJupyter from "./download-as-jupyter.svelte";
-    import { state } from "./lib/utils/state.svelte";
+    import { state } from "./lib/state.svelte";
     import { toast } from "svelte-sonner";
     import FindEditorialScreenshot from "./find-editorial-screenshot.svelte";
 

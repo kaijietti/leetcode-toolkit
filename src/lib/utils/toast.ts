@@ -1,5 +1,5 @@
 import { toast as sonner, Toaster } from "svelte-sonner";
-import { CONFIG } from "./config";
+import { CONFIG } from "../config";
 import type { ComponentType } from "svelte";
 
 const messageToastTypes = [

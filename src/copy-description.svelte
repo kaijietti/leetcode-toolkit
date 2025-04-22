@@ -10,7 +10,7 @@
     import { copy } from "./lib/utils/copy.svelte";
     import { findElement } from "./lib/utils/elementFinder";
     import { htmlToMd } from "./lib/utils/htmlToMd";
-    import { state } from "./lib/utils/state.svelte";
+    import { state } from "./lib/state.svelte";
 
     async function copyDescription() {
         copy(await getDescription());

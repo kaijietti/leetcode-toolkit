@@ -1,4 +1,4 @@
-import { state } from "./state.svelte";
+import { state } from "../state.svelte";
 import { toast } from "./toast";
 
 export function downloadFile(blob: Blob, filename: string, extension: string) {
