@@ -8,7 +8,9 @@
     import FindEditorialScreenshot from "./find-editorial-screenshot.svelte";
 
     // format on save
-    document.addEventListener("keydown", async () => {
+    document.addEventListener("keydown", async (e) => {
+        if (!(e.ctrlKey && e.key === "s")) return;
+
         try {
             await state.editor
                 ?.getAction("editor.action.formatDocument")
