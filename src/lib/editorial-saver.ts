@@ -22,6 +22,14 @@ turndown.addRule("save-playground-link", {
     },
 });
 
+// do not process math equation, save html as is
+turndown.addRule("save-math-as-is", {
+    filter: (node) =>
+        node.nodeName === "SPAN" && node.classList.contains("math"),
+
+    replacement: (_content, node) => (node as HTMLSpanElement).outerHTML,
+});
+
 export async function downloadEditorial() {
     const titleEl = await findElement("#editorial-quick-navigation");
     const editorialEl = await findElement(

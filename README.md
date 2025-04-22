@@ -33,8 +33,9 @@ This userscript enhances the LeetCode problem page with various tweaking and add
 -   Experimental:
     -   **Download Editorial(\*)**: You can find this command under your userscript manager menu (right click context menu or extension icon on browser toolbar). If you have access to an editorial, click on the command and the editorial will be saved as an `.md` file. This feature currently has limitations:
         -   Code in editorial will be saved as a link to a Leetcode playground.
-        -   Math expressions will be displayed as plain text.
+        -   ~~Math expressions will be displayed as plain text~~ Math expressions are now saved in html format, and compatible viewer such as VS Code can render them correctly.
         -   Videos will be skipped.
+        -   Slides will not be saved.
 
 > (\*) Editorial-related features are for US site only, as China site do not seem to lock their editorials behind premium.
 

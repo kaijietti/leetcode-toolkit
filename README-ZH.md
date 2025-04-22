@@ -31,8 +31,9 @@
 -   实验性：
     -   **下载官方题解(\*)**：可以在用户脚本管理器菜单（右键菜单或浏览器工具栏的扩展图标）下找到此命令。如果你能访问某篇官方题解，点击命令后题解会被保存为 `.md` 文件。此功能目前存在以下限制：
         -   题解中的代码将保存为 Leetcode Playground 的链接。
-        -   数学表达式将显示为纯文本。
+        -   ~~数学表达式将显示为纯文本~~ 数学表达式现在以 HTML 格式保存，并且兼容的查看器（如 VS Code）可以正确渲染。
         -   视频将被跳过。
+        -   幻灯片将不会被保存。
 
 > (\*) 官方题解相关功能仅供美国站，因为中国站似乎并不需要会员就能查看官方题解。
 
@@ -75,7 +76,7 @@
 
 [Jupyter Notebook](https://jupyter-notebook.readthedocs.io/en/latest/)是一个开源 Web 应用程序，允许您创建和共享包含实时代码、公式、可视化和叙述文本的文档。
 
-这个用户脚本可以帮助你将力扣题目转换成 Jupyter Notebook 文档，这样你就可以在本地机器上的同一处阅读题目、编写和运行解决方案、添加额外注释。
+“下载为 Jupyter Notebook” 功能可以帮助你将力扣题目转换成 Jupyter Notebook 文档，这样你就可以在本地机器上的同一处阅读题目、编写和运行解决方案、添加额外注释。
 
 你可以使用诸如 [VS Code](https://code.visualstudio.com/docs/datascience/jupyter-notebooks) 之类的客户端打开`.ipynb` 笔记本。默认情况下，它支持 Python，但也提供[许多其他语言的内核](https://github.com/jupyter/jupyter/wiki/Jupyter-kernels)。
 
