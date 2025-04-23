@@ -9,7 +9,7 @@ import { state } from "./lib/state";
 import { Toaster } from "./lib/utils/toast";
 import { GM_registerMenuCommand } from "$";
 
-import { downloadEditorial } from "./lib/editorial-saver";
+import { downloadEditorial, scrapeEditorial } from "./lib/editorial-saver";
 
 mount(Toaster, {
     target: document.body,
@@ -19,9 +19,10 @@ mount(Toaster, {
 await state.init();
 
 if (state.site === "global") {
-    GM_registerMenuCommand("Download Editorial (Experimental)", () =>
-        downloadEditorial()
-    );
+    GM_registerMenuCommand("Download Editorial (Experimental)", async () => {
+        const editorial = await scrapeEditorial();
+        downloadEditorial(editorial);
+    });
 }
 
 // waiting indefinitely until description tab is loaded AND not hidden

@@ -11,6 +11,9 @@ importers:
       '@joplin/turndown-plugin-gfm':
         specifier: ^1.0.61
         version: 1.0.61
+      '@sec-ant/gm-fetch':
+        specifier: ^1.2.1
+        version: 1.2.1
       '@types/turndown':
         specifier: ^5.0.5
         version: 5.0.5
@@ -444,6 +447,9 @@ packages:
     resolution: {integrity: sha512-yAkUOkIKZlK5dl7u6dg897doBgLXmUHhIINM2c+sND3DZwnrdQkkSiDh7N75Ll4mM4dxSkYfXqU9fW3lLkMFug==}
     cpu: [x64]
     os: [win32]
+
+  '@sec-ant/gm-fetch@1.2.1':
+    resolution: {integrity: sha512-Hfj70EQU8WuQN+W+raNK+MwefBhcj5sS2dJMRRx6dlS+usdLoNYg3LBbv+/gkxyITZDMw1p2l7lde1qsb7EOUg==}
 
   '@sveltejs/acorn-typescript@1.0.5':
     resolution: {integrity: sha512-IwQk4yfwLdibDlrXVE04jTZYlLnwsTT2PIOQQGNLWfjavGifnk1JD1LcZjZaBTRcxZu2FfPfNLOE04DSu9lqtQ==}
@@ -1524,6 +1530,8 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.39.0':
     optional: true
+
+  '@sec-ant/gm-fetch@1.2.1': {}
 
   '@sveltejs/acorn-typescript@1.0.5(acorn@8.14.1)':
     dependencies:
