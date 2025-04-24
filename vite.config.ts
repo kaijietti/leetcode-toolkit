@@ -1,10 +1,12 @@
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import monkey from "vite-plugin-monkey";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
     plugins: [
         svelte(),
+        tsconfigPaths(),
         monkey({
             entry: "src/main.ts",
             userscript: {

@@ -6,12 +6,12 @@
 </script>
 
 <script lang="ts">
-    import Button from "./lib/components/Button.svelte";
-    import { copy } from "./lib/utils/copy";
-    import { findElement } from "./lib/utils/elementFinder";
-    import { htmlToMd } from "./lib/utils/htmlToMd";
-    import { state } from "./lib/state";
-    import { toast } from "./lib/utils/toast";
+    import Button from "$lib/components/Button.svelte";
+    import { copy } from "$lib/utils/copy";
+    import { findElement } from "$lib/utils/elementFinder";
+    import { htmlToMd } from "$lib/utils/htmlToMd";
+    import { state } from "$lib/state";
+    import { toast } from "$lib/utils/toast";
 
     async function copyDescription() {
         const toastId = toast.loading("Scraping problem description...");

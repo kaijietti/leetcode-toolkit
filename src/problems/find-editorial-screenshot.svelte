@@ -1,7 +1,7 @@
 <script lang="ts">
-    import Button from "./lib/components/Button.svelte";
+    import Button from "$lib/components/Button.svelte";
     import { getTitle } from "./copy-title.svelte";
-    import { extractScreenshotLink } from "./lib/editorial-screenshot";
+    import { extractScreenshotLink } from "$lib/editorial-screenshot";
     import { toast } from "svelte-sonner";
 
     async function goToEditorialScreenshot() {

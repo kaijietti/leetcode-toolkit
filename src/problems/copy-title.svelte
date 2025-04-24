@@ -4,11 +4,10 @@
 </script>
 
 <script lang="ts">
-    import "./app.css";
-    import Button from "./lib/components/Button.svelte";
-    import { findElement } from "./lib/utils/elementFinder";
-    import { copy } from "./lib/utils/copy";
-    import { state } from "./lib/state";
+    import Button from "$lib/components/Button.svelte";
+    import { findElement } from "$lib/utils/elementFinder";
+    import { copy } from "$lib/utils/copy";
+    import { state } from "$lib/state";
 
     async function copyTitle() {
         copy(await getTitle());
