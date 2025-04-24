@@ -4,20 +4,32 @@
     import { getDescription } from "./copy-description.svelte";
     import { getTitle } from "./copy-title.svelte";
     import { state } from "./lib/state";
+    import { toast } from "svelte-sonner";
 
     const getLanguage = () => {
         return state.editor?.getModel()?.getLanguageId() ?? "python";
     };
 
     async function downloadAsJupyter() {
-        const title = await getTitle();
-        const notebook = createNotebook({
-            title: title,
-            description: await getDescription(),
-            language: getLanguage(),
-            url: window.location.href,
+        async function scrape() {
+            const title = await getTitle();
+            const notebook = createNotebook({
+                title: title,
+                description: await getDescription(),
+                language: getLanguage(),
+                url: window.location.href,
+            });
+            return { notebook, title };
+        }
+        toast.promise(scrape, {
+            loading: "Scraping problem description and code...",
+
+            success: ({ notebook, title }) => {
+                downloadNotebook(notebook, title);
+                return "Start downloading jupyter notebook..";
+            },
+            error: "Something went wrong.",
         });
-        downloadNotebook(notebook, title);
     }
 </script>
 

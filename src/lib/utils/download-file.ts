@@ -1,6 +1,3 @@
-import { state } from "../state";
-import { toast } from "./toast";
-
 export function downloadFile(blob: Blob, filename: string, extension: string) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -10,5 +7,4 @@ export function downloadFile(blob: Blob, filename: string, extension: string) {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    toast.success(state.site === "cn" ? "开始下载……" : "Start downloading...");
 }

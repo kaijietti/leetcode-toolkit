@@ -6,7 +6,7 @@ import { CONFIG } from "./lib/config";
 
 import { toKebabCase } from "remeda";
 import { state } from "./lib/state";
-import { Toaster } from "./lib/utils/toast";
+import { toast, Toaster } from "./lib/utils/toast";
 import { GM_registerMenuCommand } from "$";
 
 import { downloadEditorial, scrapeEditorial } from "./lib/editorial-saver";
@@ -20,8 +20,14 @@ await state.init();
 
 if (state.site === "global") {
     GM_registerMenuCommand("Download Editorial (Experimental)", async () => {
-        const editorial = await scrapeEditorial();
-        downloadEditorial(editorial);
+        toast.promise(scrapeEditorial(), {
+            loading: "Scraping Editorial...",
+            success: (editorial) => {
+                downloadEditorial(editorial);
+                return "Start downloading...";
+            },
+            error: "Something went wrong while scraping.",
+        });
     });
 }
 

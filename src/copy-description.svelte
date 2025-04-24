@@ -11,9 +11,12 @@
     import { findElement } from "./lib/utils/elementFinder";
     import { htmlToMd } from "./lib/utils/htmlToMd";
     import { state } from "./lib/state";
+    import { toast } from "./lib/utils/toast";
 
     async function copyDescription() {
-        copy(await getDescription());
+        const toastId = toast.loading("Scraping problem description...");
+        const desc = await getDescription();
+        copy(desc, toastId);
     }
 </script>
 
