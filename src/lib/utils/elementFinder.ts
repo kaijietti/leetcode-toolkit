@@ -65,7 +65,7 @@ export function find<T>(
     });
 }
 
-export async function findElement(
+export async function findElement<T extends Element>(
     selector: string,
     {
         parent = document,
@@ -76,10 +76,10 @@ export async function findElement(
         timeout?: number;
         additionalRule?: (el: Element) => boolean;
     } = {}
-) {
-    const element = await find(
+): Promise<T> {
+    const element = await find<T>(
         () => {
-            const el = parent.querySelector(selector);
+            const el = parent.querySelector(selector) as T | null;
             if (additionalRule && el) {
                 // if the found element does not meet the rule,
                 // return `null` so the finder will proceed as if not found

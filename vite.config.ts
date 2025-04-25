@@ -31,7 +31,7 @@ export default defineConfig({
                     "*://leetcode.com/problems/*/post-solution/*",
                     "*://leetcode.cn/problems/*/post-solution/*", // untested
                 ],
-                version: "2.3.0",
+                version: "2.4.0",
                 license: "MIT",
                 icon: "https://www.google.com/s2/favicons?sz=64&domain=leetcode.com",
                 resource: {
