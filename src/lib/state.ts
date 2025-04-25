@@ -1,17 +1,14 @@
-import type { editor } from "monaco-editor";
-import { findMonacoEditor, patchMonaco } from "./intellisense";
+class GlobalState {
+    #site?: "global" | "cn";
 
-class State {
-    site: "global" | "cn" = "global";
-    editor: editor.ICodeEditor | null = null;
+    get site(): "global" | "cn" {
+        if (!this.#site) {
+            const hostname = window.location.hostname;
+            this.#site = hostname === "leetcode.cn" ? "cn" : "global";
+        }
 
-    async init() {
-        const hostname = window.location.hostname;
-        this.site = hostname === "leetcode.cn" ? "cn" : "global";
-
-        this.editor = await findMonacoEditor();
-        patchMonaco(this.editor);
+        return this.#site;
     }
 }
 
-export const state = new State();
+export const globalState = new GlobalState();

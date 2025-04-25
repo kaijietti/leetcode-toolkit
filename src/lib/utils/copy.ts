@@ -1,11 +1,13 @@
 import { toast } from "./toast";
-import { state } from "../state";
+import { globalState } from "../state";
 
 export async function copy(text: string, toastId?: string | number) {
     try {
         await navigator.clipboard.writeText(text);
         toast.success(
-            state.site === "cn" ? "复制到剪贴板!" : "Copied to clipboard!",
+            globalState.site === "cn"
+                ? "复制到剪贴板!"
+                : "Copied to clipboard!",
             {
                 id: toastId, // update an already present toast, if given the id of that toast
             }
@@ -13,7 +15,7 @@ export async function copy(text: string, toastId?: string | number) {
     } catch (err) {
         if (err instanceof Error) {
             const errorMessage =
-                state.site === "cn" ? "复制失败" : "Failed to copy";
+                globalState.site === "cn" ? "复制失败" : "Failed to copy";
             toast.error(errorMessage + ": " + err.message, {
                 id: toastId,
             });

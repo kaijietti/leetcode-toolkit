@@ -1,6 +1,6 @@
 import { mount } from "svelte";
 import { toKebabCase } from "remeda";
-import { state } from "$lib/state";
+import { globalState } from "$lib/state";
 import { toast } from "$lib/utils/toast";
 
 import { findElement } from "$lib/utils/elementFinder";
@@ -11,10 +11,12 @@ import { GM_registerMenuCommand } from "$";
 
 import { downloadEditorial, scrapeEditorial } from "$lib/editorial-saver";
 
-async function main() {
-    await state.init();
+import { problemState } from "./state";
 
-    if (state.site === "global") {
+async function main() {
+    await problemState.patchMonacoEditor();
+
+    if (globalState.site === "global") {
         GM_registerMenuCommand(
             "Download Editorial (Experimental)",
             async () => {
@@ -31,25 +33,24 @@ async function main() {
     }
 
     // waiting indefinitely until description tab is loaded AND not hidden
-    const descriptionTab = await findElement(
+    const descriptionTab = await findElement<HTMLDivElement>(
         ".flexlayout__tab:has([data-track-load='description_content'])",
         {
             timeout: 0,
-            additionalRule: (el) =>
-                (el as HTMLElement).style.display !== "none",
+            additionalRule: (el) => el.style.display !== "none",
         }
     );
 
     const titleContainer = await findElement("div:has(> .text-title-large)", {
         parent: descriptionTab,
     });
-    const app = document.createElement("div");
-    app.setAttribute("id", toKebabCase(CONFIG.APP_NAME));
-    app.style.cssText = "display: contents;";
-    titleContainer.parentElement?.before(app);
+    const buttons = document.createElement("div");
+    buttons.setAttribute("id", toKebabCase(CONFIG.APP_NAME));
+    buttons.style.cssText = "display: contents;";
+    titleContainer.parentElement?.before(buttons);
 
     mount(Buttons, {
-        target: app,
+        target: buttons,
     });
 }
 

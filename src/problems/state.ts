@@ -1,0 +1,32 @@
+import type { editor } from "monaco-editor";
+import { findMonacoEditor, addIntellisense } from "$lib/intellisense";
+import { toast } from "svelte-sonner";
+
+class ProblemPageState {
+    editor: editor.ICodeEditor | null = null;
+
+    async patchMonacoEditor() {
+        this.editor = await findMonacoEditor();
+        this.enableFormatOnSave();
+        addIntellisense(this.editor);
+    }
+
+    enableFormatOnSave() {
+        document.addEventListener("keydown", async (e) => {
+            if (!(e.ctrlKey && e.key === "s")) return;
+
+            try {
+                await this.editor
+                    ?.getAction("editor.action.formatDocument")
+                    ?.run();
+            } catch (err) {
+                console.error(err);
+                if (err instanceof Error) {
+                    toast.error("Failed to format code:" + err.message);
+                }
+            }
+        });
+    }
+}
+
+export const problemState = new ProblemPageState();

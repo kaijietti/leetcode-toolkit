@@ -74,7 +74,7 @@ export async function findElement<T extends Element>(
     }: {
         parent?: Document | Element;
         timeout?: number;
-        additionalRule?: (el: Element) => boolean;
+        additionalRule?: (el: T) => boolean;
     } = {}
 ): Promise<T> {
     const element = await find<T>(

@@ -16,7 +16,7 @@ const overrideOptions: MonacoEditorOptions = {
 };
 
 /** Add Intellisense to the monaco editor */
-export function patchMonaco(editor: editor.ICodeEditor): void {
+export function addIntellisense(editor: editor.ICodeEditor): void {
     const originalUpdateOptions = editor.updateOptions.bind(editor);
     editor.updateOptions = (options: MonacoEditorOptions): void => {
         originalUpdateOptions({

@@ -75,9 +75,12 @@ export async function scrapeEditorial(): Promise<string> {
 }
 
 export async function downloadEditorial(editorial: string) {
-    const titleEl = await findElement("#editorial-quick-navigation");
+    const titleEl = await findElement<HTMLDivElement>(
+        "#editorial-quick-navigation"
+    );
+    const title = titleEl.innerText;
 
-    const blob = new Blob([editorial], {
+    const blob = new Blob([`# ${title}\n\n`, editorial], {
         type: "text/markdown; charset=UTF-8",
     });
     downloadFile(blob, titleEl.textContent ?? "Untitled", "md");

@@ -10,7 +10,7 @@
     import { copy } from "$lib/utils/copy";
     import { findElement } from "$lib/utils/elementFinder";
     import { htmlToMd } from "$lib/utils/htmlToMd";
-    import { state } from "$lib/state";
+    import { globalState } from "$lib/state";
     import { toast } from "$lib/utils/toast";
 
     async function copyDescription() {
@@ -21,5 +21,5 @@
 </script>
 
 <Button onclick={copyDescription}>
-    {state.site === "cn" ? "复制描述" : "Copy Description"}
+    {globalState.site === "cn" ? "复制描述" : "Copy Description"}
 </Button>

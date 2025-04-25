@@ -4,8 +4,9 @@ import type {
     IMarkdownCell,
     MultilineString,
 } from "@jupyterlab/nbformat";
-import { state } from "./state";
+import { globalState } from "./state";
 import { downloadFile } from "./utils/download-file";
+import { problemState } from "src/problems/state";
 
 export function createNotebook({
     title,
@@ -35,17 +36,20 @@ export function createNotebook({
         `# [${title}](${match ? match[0] : url})`
     );
 
-    const descriptionPrefix = state.site === "cn" ? "题目描述" : "Description";
+    const descriptionPrefix =
+        globalState.site === "cn" ? "题目描述" : "Description";
     const descriptionCell = createMarkdownCell(
         `## ${descriptionPrefix} \n\n` + description
     );
 
-    const solutionPrefix = state.site === "cn" ? "解答" : "Solution";
+    const solutionPrefix = globalState.site === "cn" ? "解答" : "Solution";
     const partitionCell = createMarkdownCell([
         "---\n\n",
         `## ${solutionPrefix}`,
     ]);
-    const codeCell = createCodeCell(state.editor?.getModel()?.getValue() ?? "");
+    const codeCell = createCodeCell(
+        problemState.editor?.getModel()?.getValue() ?? ""
+    );
     notebook.cells.push(titleCell, descriptionCell, partitionCell, codeCell);
     return notebook;
 }

@@ -3,11 +3,12 @@
     import { createNotebook, downloadNotebook } from "$lib/jupyter";
     import { getDescription } from "./copy-description.svelte";
     import { getTitle } from "./copy-title.svelte";
-    import { state } from "$lib/state";
+    import { globalState } from "$lib/state";
+    import { problemState } from "./state";
     import { toast } from "svelte-sonner";
 
     const getLanguage = () => {
-        return state.editor?.getModel()?.getLanguageId() ?? "python";
+        return problemState.editor?.getModel()?.getLanguageId() ?? "python";
     };
 
     async function downloadAsJupyter() {
@@ -34,7 +35,7 @@
 </script>
 
 <Button style="color: oklch(51.1% 0.096 186.391)" onclick={downloadAsJupyter}>
-    {state.site === "cn"
+    {globalState.site === "cn"
         ? "下载为 Jupyter Notebook (.ipynb)"
         : "Download as Jupyter Notebook (.ipynb)"}
 </Button>
