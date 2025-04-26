@@ -1,6 +1,22 @@
 <script lang="ts" module>
-    export const getTitle = async () =>
-        (await findElement(".text-title-large")).textContent ?? "";
+    import { simulateMouseClickReact } from "$lib/utils/click";
+
+    export const getTitle = async () => {
+        const descriptionTabButton = (
+            await findElement("#description_tab")
+        ).closest(".flexlayout__tab_button")!;
+
+        if (
+            !descriptionTabButton?.classList.contains(
+                ".flexlayout__tab_button--selected"
+            )
+        ) {
+            // open the description tab if it's not selected
+            simulateMouseClickReact(descriptionTabButton);
+        }
+
+        return (await findElement(".text-title-large")).textContent ?? "";
+    };
 </script>
 
 <script lang="ts">

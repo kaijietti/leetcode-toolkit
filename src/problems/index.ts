@@ -1,7 +1,6 @@
 import { mount } from "svelte";
 import { toKebabCase } from "remeda";
 import { globalState } from "$lib/state";
-import { toast } from "$lib/utils/toast";
 
 import { findElement } from "$lib/utils/elementFinder";
 import { CONFIG } from "$lib/config";
@@ -9,7 +8,7 @@ import Buttons from "./Butttons.svelte";
 
 import { GM_registerMenuCommand } from "$";
 
-import { downloadEditorial, scrapeEditorial } from "$lib/editorial-saver";
+import { downloadEditorial } from "$lib/editorial-saver";
 
 import { problemState } from "./state";
 
@@ -19,16 +18,7 @@ async function main() {
     if (globalState.site === "global") {
         GM_registerMenuCommand(
             "Download Editorial (Experimental)",
-            async () => {
-                toast.promise(scrapeEditorial(), {
-                    loading: "Scraping Editorial...",
-                    success: (editorial) => {
-                        downloadEditorial(editorial);
-                        return "Start downloading...";
-                    },
-                    error: "Something went wrong while scraping.",
-                });
-            }
+            downloadEditorial
         );
     }
 

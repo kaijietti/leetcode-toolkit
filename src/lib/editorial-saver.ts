@@ -1,13 +1,15 @@
+import { getTitle } from "src/problems/copy-title.svelte";
+import { simulateMouseClickReact } from "./utils/click";
 import { downloadFile } from "./utils/download-file";
 import { findElement } from "./utils/elementFinder";
 import { htmlToMd, createTurndownService } from "./utils/htmlToMd";
+import { toast } from "./utils/toast";
 
 const turndown = createTurndownService();
 // remove the link before section heading in LeetCode editorials
 turndown.addRule("remove-heading-link", {
     filter: (node) =>
         node.nodeName === "A" && node.getAttribute("aria-hidden") === "true",
-
     replacement: () => "",
 });
 
@@ -15,26 +17,38 @@ turndown.addRule("remove-heading-link", {
 turndown.addRule("save-math-as-is", {
     filter: (node) =>
         node.nodeName === "SPAN" && node.classList.contains("math"),
-
     replacement: (_content, node) => (node as HTMLSpanElement).outerHTML,
 });
 
+function waitForMyIframeToReload(iframe: HTMLIFrameElement) {
+    return new Promise((resolve) => {
+        if (iframe.contentDocument?.readyState === "complete") {
+            resolve(undefined);
+        } else {
+            iframe.addEventListener("load", resolve);
+        }
+    });
+}
+
 const playgroundCache = new Map<string, string>();
-function prefetchPlayground(editorialEl: HTMLDivElement) {
+async function prefetchPlayground(editorialEl: HTMLDivElement) {
     const iframes = editorialEl.querySelectorAll("iframe");
-    iframes.forEach((iframe) => {
+    const promises = Array.from(iframes).map(async (iframe) => {
+        await waitForMyIframeToReload(iframe);
         const { src, contentDocument } = iframe;
         if (!src.includes("playground")) return;
 
-        const langTab = contentDocument?.querySelector("div.lang-btn-set");
+        const langTab = await findElement("div.lang-btn-set", {
+            parent: contentDocument!,
+        });
         const textarea = contentDocument?.querySelector<HTMLTextAreaElement>(
             "textarea[name='lc-codemirror']"
         );
 
         let result = `<MixedCodeBlock> \n\n`;
         Array.from(
-            langTab?.children as HTMLCollectionOf<HTMLButtonElement>
-        ).forEach(async (button) => {
+            langTab.children as HTMLCollectionOf<HTMLButtonElement>
+        ).forEach((button) => {
             let lang = button.textContent?.toLowerCase();
             if (lang === "python3") lang = "python";
             button.click();
@@ -45,6 +59,7 @@ function prefetchPlayground(editorialEl: HTMLDivElement) {
         result += `</MixedCodeBlock>`;
         playgroundCache.set(src, result);
     });
+    await Promise.all(promises);
 }
 
 // save LeetCode Playground Link
@@ -61,11 +76,19 @@ turndown.addRule("save-code-playground", {
 });
 
 export async function scrapeEditorial(): Promise<string> {
+    const editorialTabButton = (await findElement("#editorial_tab")).closest(
+        ".flexlayout__tab_button"
+    );
+    if (editorialTabButton) simulateMouseClickReact(editorialTabButton);
+
     const editorialEl = await findElement<HTMLDivElement>(
-        ".flexlayout__tab:has(#editorial-quick-navigation) div.WRmCx"
+        ".flexlayout__tab:has(#editorial-quick-navigation) div.WRmCx",
+        {
+            timeout: 2000,
+        }
     ); // `div.WRmCx` part is not reliable
 
-    prefetchPlayground(editorialEl);
+    await prefetchPlayground(editorialEl);
 
     const editorial = await htmlToMd(editorialEl.innerHTML, turndown);
 
@@ -74,14 +97,27 @@ export async function scrapeEditorial(): Promise<string> {
     return editorial;
 }
 
-export async function downloadEditorial(editorial: string) {
-    const titleEl = await findElement<HTMLDivElement>(
-        "#editorial-quick-navigation"
+export async function downloadEditorial() {
+    toast.promise(
+        async () => {
+            return {
+                editorial: await scrapeEditorial(),
+                title: await getTitle(),
+            };
+        },
+        {
+            loading: "Scraping Editorial...",
+            success: ({ editorial, title }) => {
+                const blob = new Blob([`# ${title}\n\n`, editorial], {
+                    type: "text/markdown; charset=UTF-8",
+                });
+                downloadFile(blob, title, "md");
+                return "Start downloading...";
+            },
+            error: (err) => {
+                console.error(err);
+                return "Something went wrong while scraping.";
+            },
+        }
     );
-    const title = titleEl.innerText;
-
-    const blob = new Blob([`# ${title}\n\n`, editorial], {
-        type: "text/markdown; charset=UTF-8",
-    });
-    downloadFile(blob, titleEl.textContent ?? "Untitled", "md");
 }
