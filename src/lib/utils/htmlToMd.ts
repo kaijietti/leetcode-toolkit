@@ -1,37 +1,17 @@
 import TurndownService from "turndown";
 import { tables } from "@joplin/turndown-plugin-gfm";
-import gmFetch from "@sec-ant/gm-fetch";
+import { convertSrcToDataURL } from "./data-url";
 
-function blobToDataURL(blob: Blob): Promise<string> {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result as string);
-        reader.onerror = (error) => reject(error);
-        reader.readAsDataURL(blob);
-    });
-}
-
+/** <`src`, `dataURL`> */
 const imageCache = new Map<string, string>();
 
-async function prefetchImages(html: string) {
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = html;
-    const images = Array.from(tempDiv.querySelectorAll("img"));
+async function prefetchImages(node: TurndownService.Node) {
+    const images = Array.from(node.querySelectorAll("img"));
 
-    const fetchPromises = images.map(async (img) => {
-        const src = img.src;
-        if (!src || src.startsWith("data:") || imageCache.has(src)) {
-            return; // Skip if already cached or invalid
-        }
-
-        try {
-            const response = await gmFetch(src); // cannot use native fetch because of CORS issues
-            const blob = await response.blob();
-            const dataURL = await blobToDataURL(blob);
-            imageCache.set(src, dataURL);
-        } catch (err) {
-            console.error(`Failed to fetch image: ${src}`, err);
-        }
+    const fetchPromises = images.map(async ({ src }) => {
+        if (imageCache.has(src)) return;
+        const dataURL = await convertSrcToDataURL(src);
+        imageCache.set(src, dataURL);
     });
     await Promise.all(fetchPromises);
 }
@@ -54,14 +34,8 @@ export function createTurndownService() {
         filter: ["p"],
         replacement: (content) => "\n\n" + content + "\n\n",
     });
-
     turndown.addRule("convert-img-src-to-base64", {
-        filter: (node) => {
-            const { src } = node as HTMLImageElement;
-            // If no image source or source is already a data URL, don't handle
-            if (!src || src.startsWith("data:")) return false;
-            return node.tagName === "IMG";
-        },
+        filter: ["img"],
         replacement: (_content, node) => {
             const { src, alt } = node as HTMLImageElement;
 
@@ -79,13 +53,13 @@ export function createTurndownService() {
 }
 
 export async function htmlToMd(
-    htmlStr: string,
+    node: TurndownService.Node,
     service = createTurndownService()
 ) {
     // Prefetch images before converting to Markdown
-    await prefetchImages(htmlStr);
+    await prefetchImages(node);
 
-    const md = service.turndown(htmlStr);
+    const md = service.turndown(node);
 
     // Clear the image cache since we don't need it anymore
     imageCache.clear();

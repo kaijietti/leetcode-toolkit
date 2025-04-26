@@ -1,7 +1,9 @@
 <script lang="ts" module>
     export const getDescription = async () => {
-        const el = await findElement("[data-track-load='description_content']");
-        return htmlToMd(el.innerHTML);
+        const el = await findElement<HTMLDivElement>(
+            "div[data-track-load='description_content']"
+        );
+        return htmlToMd(el);
     };
 </script>
 

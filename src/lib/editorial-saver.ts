@@ -32,8 +32,8 @@ function waitForMyIframeToReload(iframe: HTMLIFrameElement) {
 
 const playgroundCache = new Map<string, string>();
 async function prefetchPlayground(editorialEl: HTMLDivElement) {
-    const iframes = editorialEl.querySelectorAll("iframe");
-    const promises = Array.from(iframes).map(async (iframe) => {
+    const iframes = Array.from(editorialEl.querySelectorAll("iframe"));
+    const promises = iframes.map(async (iframe) => {
         await waitForMyIframeToReload(iframe);
         const { src, contentDocument } = iframe;
         if (!src.includes("playground")) return;
@@ -90,7 +90,7 @@ export async function scrapeEditorial(): Promise<string> {
 
     await prefetchPlayground(editorialEl);
 
-    const editorial = await htmlToMd(editorialEl.innerHTML, turndown);
+    const editorial = await htmlToMd(editorialEl, turndown);
 
     playgroundCache.clear();
 
