@@ -21,12 +21,22 @@ turndown.addRule("save-math-as-is", {
     replacement: (_content, node) => (node as HTMLSpanElement).outerHTML,
 });
 
-function waitForMyIframeToReload(iframe: HTMLIFrameElement) {
+/** This only works for same-origin iframes */
+function waitForIframeToLoad(iframe: HTMLIFrameElement) {
     return new Promise((resolve) => {
-        if (iframe.contentDocument?.readyState === "complete") {
+        // if all these conditions are met,
+        // it means the iframe document is already loaded,
+        // resolve immediately
+        // https://stackoverflow.com/a/69694808
+        if (
+            iframe.src !== "about:blank" &&
+            iframe.contentWindow?.location.href !== "about:blank" &&
+            iframe.contentDocument?.readyState === "complete"
+        ) {
             resolve(undefined);
         } else {
-            iframe.addEventListener("load", resolve);
+            // otherwise, start an event listener and wait for it loads
+            iframe.addEventListener("load", resolve, { once: true });
         }
     });
 }
@@ -35,20 +45,21 @@ const playgroundCache = new Map<string, string>();
 async function prefetchPlayground(editorialEl: HTMLDivElement) {
     const iframes = Array.from(editorialEl.querySelectorAll("iframe"));
     const promises = iframes.map(async (iframe) => {
-        await waitForMyIframeToReload(iframe);
+        await waitForIframeToLoad(iframe);
         const { src, contentDocument } = iframe;
         if (!src.includes("playground")) return;
 
         const langTab = await findElement("div.lang-btn-set", {
             parent: contentDocument!,
+            timeout: 1000,
         });
         const textarea = contentDocument?.querySelector<HTMLTextAreaElement>(
-            "textarea[name='lc-codemirror']"
+            "textarea[name='lc-codemirror']",
         );
 
         let result = `<MixedCodeBlock> \n\n`;
         Array.from(
-            langTab.children as HTMLCollectionOf<HTMLButtonElement>
+            langTab.children as HTMLCollectionOf<HTMLButtonElement>,
         ).forEach((button) => {
             let lang = button.textContent?.toLowerCase();
             if (lang === "python3") lang = "python";

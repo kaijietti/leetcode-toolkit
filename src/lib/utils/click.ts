@@ -1,6 +1,6 @@
 import { unsafeWindow } from "$";
 
-const mouseClickEvents = ["mousedown", "click", "mouseup"];
+const mouseClickEvents = ["mousedown", "mouseup", "click"];
 /**
  *
  * @see {@link https://stackoverflow.com/a/54316368}
@@ -15,7 +15,7 @@ export function simulateMouseClickReact(element: Element) {
                 bubbles: true,
                 cancelable: true,
                 buttons: 1,
-            })
-        )
+            }),
+        ),
     );
 }
