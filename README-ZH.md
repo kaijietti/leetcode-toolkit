@@ -29,11 +29,12 @@
     -   **保存时格式化代码：** 按下 <kbd>Ctrl + S</kbd> 时将自动格式化代码。
     -   **解锁 IntelliSense：** 享受自动补全、悬浮建议等功能，无需购买会员。
 -   实验性：
-    -   **下载官方题解(\*)**：可以在用户脚本管理器菜单（右键菜单或浏览器工具栏的扩展图标）下找到此命令。如果你能访问某篇官方题解，点击命令后题解会被保存为 `.md` 文件。此功能目前存在以下限制：
-        -   ~~题解中的代码将保存为 Leetcode Playground 的链接。~~除了 Playground 链接，实际的代码现在也被爬取。
-        -   ~~数学表达式将显示为纯文本~~ 数学表达式现在以 HTML 格式保存，并且兼容的查看器（如 VS Code）可以正确渲染。
-        -   视频将被跳过。
-        -   幻灯片将不会被保存。
+    -   **下载官方题解(\*)**：可以在用户脚本管理器菜单（右键菜单或浏览器工具栏的扩展图标）下找到此命令。如果你能访问某篇官方题解，点击命令后题解会被保存为 `.md` 文件。你可以使用我的 [LeetCode Editorial Reader](https://leetcode-editorial-reader.vercel.app/) 应用以最佳布局查看此类文件，就像在 LeetCode 网站上一样，但任何 Markdown 阅读器也能正常打开它们。需要注意以下几点：
+        -   代码将保存为指向相应 LeetCode Playground 的链接，以及多个不同语言的代码块。[LeetCode Editorial Reader](https://leetcode-editorial-reader.vercel.app/) 可以将它们显示为选项卡布局，以便你选择自己想查看的语言，而不会使页面杂乱。
+        -   幻灯片将保存为一系列图像。[LeetCode Editorial Reader](https://leetcode-editorial-reader.vercel.app/) 可以将它们以真正的幻灯片布局展示。
+        -   说到图像，它们将保存为 Base64 编码的字符串，这意味着它们直接位于 Markdown 中，不会出现“找不到图像”的风险。 （但这也会使文件更大。）
+        -   数学表达式已保存，但您可能需要兼容的查看器，例如 VS Code 或 [LeetCode Editorial Reader](https://leetcode-editorial-reader.vercel.app/) 才能正确呈现它们。
+        -   视频**不会**被保存。
 
 > (\*) 官方题解相关功能仅供美国站，因为中国站似乎并不需要会员就能查看官方题解。
 

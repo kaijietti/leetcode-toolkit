@@ -31,11 +31,12 @@ This userscript enhances the LeetCode problem page with various tweaking and add
     -   **Format On Save:** Automatically format code when pressing <kbd>Ctrl + S</kbd>.
     -   **Unlock IntelliSense:** Enjoy autocompletion and hover suggestions without paying for premium.
 -   Experimental:
-    -   **Download Editorial(\*)**: You can find this command under your userscript manager menu (right click context menu or extension icon on browser toolbar). If you have access to an editorial, click on the command and the editorial will be saved as an `.md` file. This feature currently has limitations:
-        -   ~~Code in editorial will be saved as a link to a Leetcode playground.~~ In addition to playground link, the actual code are now scraped too.
-        -   ~~Math expressions will be displayed as plain text~~ Math expressions are now saved in html format, and compatible viewer such as VS Code can render them correctly.
-        -   Videos will be skipped.
-        -   Slides will not be saved.
+    -   **Download Editorial(\*)**: You can find this command under your userscript manager menu (right click context menu or extension icon on browser toolbar). If you have access to an editorial, click on the command and the script will save the editorial as an `.md` file. You can use my [LeetCode Editorial Reader](https://leetcode-editorial-reader.vercel.app/) app to view such files in best layout just like on LeetCode site, but any Markdown readers will open them just fine too. A few things to notice:
+        -   Codes will be saved as a link to the corresponding LeetCode playground, as well as multiple code blocks in different language. [LeetCode Editorial Reader](https://leetcode-editorial-reader.vercel.app/) can display them in tab layout so you can choose the language you want to view without cluttering the page.
+        -   Slides are saved as a series of images. [LeetCode Editorial Reader](https://leetcode-editorial-reader.vercel.app/) can display them in true slide layout.
+        -   Speaking of images, they are saved as Base64-encoded string, which means they are directly inside the markdown without the risk of "image not found". (This also makes the file larger though.)
+        -   Math expressions are saved, but you may need compatible viewers such as VS Code or [LeetCode Editorial Reader](https://leetcode-editorial-reader.vercel.app/) to render them correctly.
+        -   Videos **are not** saved. That's a headache I don't want to deal with.
 
 > (\*) Editorial-related features are for US site only, as China site do not seem to lock their editorials behind premium.
 

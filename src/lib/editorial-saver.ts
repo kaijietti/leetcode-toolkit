@@ -4,6 +4,7 @@ import { downloadFile } from "./utils/download-file";
 import { findElement } from "./utils/elementFinder";
 import { htmlToMd, createTurndownService } from "./utils/htmlToMd";
 import { toast } from "./utils/toast";
+import { convertSrcToDataURL } from "./utils/data-url";
 
 const turndown = createTurndownService();
 // remove the link before section heading in LeetCode editorials
@@ -75,9 +76,76 @@ turndown.addRule("save-code-playground", {
     },
 });
 
+/** <plainSrcOfFirstSlide, dataURLOfSlide[]> */
+const slideCache = new Map<string, string[]>();
+
+// this currently requires user did not interact with the slides before scraping,
+// so that the scrapped slides are in correct order.
+async function preFetchSlides(editorialEl: HTMLDivElement) {
+    const slideImages =
+        editorialEl.querySelectorAll<HTMLImageElement>("img[alt='Current']");
+    const promises = Array.from(slideImages).map(async (image) => {
+        const slideContainer = image.parentElement?.parentElement;
+        if (!slideContainer) {
+            throw new Error("Slide container not found");
+        }
+
+        const slideNumIndicator = slideContainer.children[2].children[1];
+        slideNumIndicator.setAttribute("data-skip-me-turndown", "true"); // prevent this indicator appear in scraped markdown
+        const slidesCountStr =
+            slideNumIndicator.textContent?.match(/\d+$/)?.[0];
+        if (!slidesCountStr) {
+            throw new Error("Slide count not found");
+        }
+
+        const nextSlideButton =
+            slideContainer.querySelector("svg:nth-child(3)");
+        if (!nextSlideButton) {
+            throw new Error("Next slide button not found");
+        }
+
+        const firstSlideSrc = image.src; // use as key of cache
+        slideCache.set(firstSlideSrc, []);
+
+        // add the slide pictures
+        for (let i = 0; i < Number(slidesCountStr); i++) {
+            // The clicks doesn't need special conditional handling:
+            // 1. For some reason, the `image.src` we got is delayed by 1 with each click
+            // 2. After the final image, we need to click one more time so it's back to first slide, so that turndown can get the src of first slide as key to fetch from the cache
+            simulateMouseClickReact(nextSlideButton);
+
+            const dataURL = await convertSrcToDataURL(image.src);
+            slideCache.get(firstSlideSrc)!.push(dataURL);
+        }
+    });
+    await Promise.all(promises);
+}
+
+turndown.addRule("save-slides", {
+    filter: (node) =>
+        node.tagName === "IMG" && (node as HTMLImageElement).alt === "Current",
+    replacement: (_content, node) => {
+        const { src } = node as HTMLImageElement;
+        const dataURLs = slideCache.get(src);
+        if (!dataURLs) return "";
+
+        let res = `<Slides> \n\n`;
+        dataURLs.forEach((dataURL, index) => {
+            res += `![Slide ${index + 1}](${dataURL}) \n`;
+        });
+        res += `\n</Slides>`;
+        return res;
+    },
+});
+
+// skip element that has "data-skip-me-turndown" label
+turndown.remove(
+    (node) => node.getAttribute("data-skip-me-turndown") === "true",
+);
+
 export async function scrapeEditorial(): Promise<string> {
     const editorialTabButton = (await findElement("#editorial_tab")).closest(
-        ".flexlayout__tab_button"
+        ".flexlayout__tab_button",
     );
     if (editorialTabButton) simulateMouseClickReact(editorialTabButton);
 
@@ -85,14 +153,16 @@ export async function scrapeEditorial(): Promise<string> {
         ".flexlayout__tab:has(#editorial-quick-navigation) div.WRmCx",
         {
             timeout: 2000,
-        }
+        },
     ); // `div.WRmCx` part is not reliable
 
     await prefetchPlayground(editorialEl);
+    await preFetchSlides(editorialEl);
 
     const editorial = await htmlToMd(editorialEl, turndown);
 
     playgroundCache.clear();
+    slideCache.clear();
 
     return editorial;
 }
@@ -118,6 +188,6 @@ export async function downloadEditorial() {
                 console.error(err);
                 return "Something went wrong while scraping.";
             },
-        }
+        },
     );
 }

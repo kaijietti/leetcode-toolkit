@@ -1,7 +1,7 @@
 {
     "name": "leetcode-jupyter",
     "private": true,
-    "version": "2.3.0",
+    "version": "2.5.0",
     "type": "module",
     "scripts": {
         "dev": "vite",
@@ -16,6 +16,7 @@
         "@jupyterlab/nbformat": "^4.4.0",
         "@sveltejs/vite-plugin-svelte": "^5.0.3",
         "@tsconfig/svelte": "^5.0.4",
+        "@types/turndown": "^5.0.5",
         "eslint": "^9.18.0",
         "eslint-plugin-svelte": "^3.0.0",
         "globals": "^16.0.0",
@@ -32,7 +33,6 @@
     "dependencies": {
         "@joplin/turndown-plugin-gfm": "^1.0.61",
         "@sec-ant/gm-fetch": "^1.2.1",
-        "@types/turndown": "^5.0.5",
         "remeda": "^2.21.2",
         "svelte-sonner": "^0.3.28",
         "turndown": "^7.2.0"

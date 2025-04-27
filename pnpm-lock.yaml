@@ -14,9 +14,6 @@ importers:
       '@sec-ant/gm-fetch':
         specifier: ^1.2.1
         version: 1.2.1
-      '@types/turndown':
-        specifier: ^5.0.5
-        version: 5.0.5
       remeda:
         specifier: ^2.21.2
         version: 2.21.2
@@ -42,6 +39,9 @@ importers:
       '@tsconfig/svelte':
         specifier: ^5.0.4
         version: 5.0.4
+      '@types/turndown':
+        specifier: ^5.0.5
+        version: 5.0.5
       eslint:
         specifier: ^9.18.0
         version: 9.24.0(jiti@2.4.2)
