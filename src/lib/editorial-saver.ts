@@ -1,4 +1,3 @@
-import { getTitle } from "src/problems/copy-title.svelte";
 import { simulateMouseClickReact } from "./utils/click";
 import { downloadFile } from "./utils/download-file";
 import { findElement } from "./utils/elementFinder";
@@ -16,8 +15,7 @@ turndown.addRule("remove-heading-link", {
 
 // do not process math equation, save html as is
 turndown.addRule("save-math-as-is", {
-    filter: (node) =>
-        node.nodeName === "SPAN" && node.classList.contains("math"),
+    filter: (node) => node.nodeName === "SPAN" && node.matches(".math, .maths"),
     replacement: (_content, node) => (node as HTMLSpanElement).outerHTML,
 });
 
@@ -154,19 +152,9 @@ turndown.remove(
     (node) => node.getAttribute("data-skip-me-turndown") === "true",
 );
 
-export async function scrapeEditorial(): Promise<string> {
-    const editorialTabButton = (await findElement("#editorial_tab")).closest(
-        ".flexlayout__tab_button",
-    );
-    if (editorialTabButton) simulateMouseClickReact(editorialTabButton);
-
-    const editorialEl = await findElement<HTMLDivElement>(
-        ".flexlayout__tab:has(#editorial-quick-navigation) div.WRmCx",
-        {
-            timeout: 2000,
-        },
-    ); // `div.WRmCx` part is not reliable
-
+export async function scrapeEditorial(
+    editorialEl: HTMLDivElement,
+): Promise<string> {
     await prefetchPlayground(editorialEl);
     await preFetchSlides(editorialEl);
 
@@ -178,12 +166,17 @@ export async function scrapeEditorial(): Promise<string> {
     return editorial;
 }
 
-export async function downloadEditorial() {
+export async function downloadEditorial(
+    editorialFinder: () => Promise<HTMLDivElement>,
+    titleFinder: () => Promise<string>,
+) {
     toast.promise(
         async () => {
+            const editorialEl = await editorialFinder();
+
             return {
-                editorial: await scrapeEditorial(),
-                title: await getTitle(),
+                editorial: await scrapeEditorial(editorialEl),
+                title: await titleFinder(),
             };
         },
         {

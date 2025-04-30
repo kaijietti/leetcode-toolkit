@@ -25,6 +25,7 @@ export default defineConfig({
                 match: [
                     "*://leetcode.com/problems/*",
                     "*://leetcode.cn/problems/*",
+                    "*://leetcode.com/explore/learn/card/*",
                 ],
                 // don't activate script on solution submission page
                 exclude: [
