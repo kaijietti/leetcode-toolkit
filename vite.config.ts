@@ -22,10 +22,10 @@ export default defineConfig({
                 author: "eclipher",
                 namespace: "https://github.com/eclipher/leetcode-toolkit",
                 homepage: "https://github.com/eclipher/leetcode-toolkit",
-                match: [
-                    "*://leetcode.com/problems/*",
-                    "*://leetcode.cn/problems/*",
-                    "*://leetcode.com/explore/learn/card/*",
+                include: [
+                    /https?:\/\/leetcode\.com\/problems\/.*/,
+                    /https?:\/\/leetcode\.cn\/problems\/.*/,
+                    /https?:\/\/leetcode\.com\/explore\/learn\/card\/.*/,
                 ],
                 // don't activate script on solution submission page
                 exclude: [

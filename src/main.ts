@@ -11,8 +11,12 @@ mount(Toaster, {
 
 const url = window.location.href;
 
-if (url.includes("problems")) {
+const problemPageRegex =
+    /https?:\/\/leetcode\.com\/problems\/.*|https?:\/\/leetcode\.cn\/problems\/.*/;
+const explorePageRegex = /https?:\/\/leetcode\.com\/explore\/learn\/card\/.*/;
+
+if (problemPageRegex.test(url)) {
     problemPage();
-} else if (url.includes("explore/learn")) {
+} else if (explorePageRegex.test(url)) {
     explorePage();
 }
