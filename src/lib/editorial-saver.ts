@@ -179,28 +179,33 @@ export async function downloadEditorial(
     editorialFinder: () => Promise<HTMLDivElement>,
     titleFinder: () => Promise<string>,
 ) {
-    toast.promise(
-        async () => {
-            const editorialEl = await editorialFinder();
+    const toastId = toast.loading("Scraping editorial...");
+    try {
+        const editorialEl = await editorialFinder();
+        const editorial = await scrapeEditorial(editorialEl);
+        const title = await titleFinder();
 
-            return {
-                editorial: await scrapeEditorial(editorialEl),
-                title: await titleFinder(),
-            };
-        },
-        {
-            loading: "Scraping Editorial...",
-            success: ({ editorial, title }) => {
-                const blob = new Blob([`# ${title}\n\n`, editorial], {
-                    type: "text/markdown; charset=UTF-8",
-                });
-                downloadFile(blob, title, "md");
-                return "Start downloading...";
+        const blob = new Blob([`# ${title}\n\n`, editorial], {
+            type: "text/markdown; charset=UTF-8",
+        });
+        downloadFile(blob, title, "md");
+        toast.success("Editorial scraped. Downloading now...", {
+            id: toastId,
+            action: {
+                label: "Read it now",
+                onClick: () => {
+                    window.open(
+                        "https://leetcode-editorial-reader.vercel.app/",
+                        "_blank",
+                    );
+                },
             },
-            error: (err) => {
-                console.error(err);
-                return "Something went wrong while scraping.";
-            },
-        },
-    );
+        });
+    } catch (err) {
+        console.error(err);
+        toast.error(
+            "Something went wrong while scraping. See browser console for more detail.",
+            { id: toastId },
+        );
+    }
 }

@@ -32,7 +32,7 @@ function main() {
 
         const chapterNumber = getElementIndex(chapterEl);
 
-        return `${chapterNumber}.${articleNumber} - ${title}`;
+        return `${chapterNumber}.${articleNumber} ${title}`;
     }
 
     GM_registerMenuCommand("Save Explore Article", () =>
