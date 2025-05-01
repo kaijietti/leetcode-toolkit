@@ -19,23 +19,32 @@ turndown.addRule("save-math-as-is", {
     replacement: (_content, node) => (node as HTMLSpanElement).outerHTML,
 });
 
-/** This only works for same-origin iframes */
+/** This only works for same-origin iframes
+ * @see {@link https://stackoverflow.com/a/69694808}
+ */
 function waitForIframeToLoad(iframe: HTMLIFrameElement) {
     return new Promise((resolve) => {
-        // if all these conditions are met,
-        // it means the iframe document is already loaded,
-        // resolve immediately
-        // https://stackoverflow.com/a/69694808
-        if (
-            iframe.src !== "about:blank" &&
-            iframe.contentWindow?.location.href !== "about:blank" &&
-            iframe.contentDocument?.readyState === "complete"
-        ) {
-            resolve(undefined);
-        } else {
-            // otherwise, start an event listener and wait for it loads
-            iframe.addEventListener("load", resolve, { once: true });
+        // chrome initialize iframe src with "about:blank", so it definitely isn't loaded
+        if (iframe.src !== "about:blank") {
+            const isSameOrigin =
+                new URL(iframe.src).hostname === window.location.hostname;
+
+            // 1. if not same origin, we don't care if it is loaded, resolve immediately (and because we can't get things inside cross-origin iframe)
+            // 2. if same origin, even if src is set, the document still might be not loaded, so need to check the contentWindow href too to determine if it's loaded
+            if (
+                !isSameOrigin ||
+                iframe.contentWindow?.location?.href !== "about:blank"
+            ) {
+                resolve(undefined);
+                return;
+            }
         }
+
+        // if promise didn't resolve to this point, meaning it's still loading, therefore add onload event listener
+        console.log("wait for iframe to load...");
+        iframe.contentWindow?.addEventListener("load", resolve, {
+            once: true,
+        });
     });
 }
 
