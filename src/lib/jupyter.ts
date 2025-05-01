@@ -6,16 +6,17 @@ import type {
 } from "@jupyterlab/nbformat";
 import { globalState } from "./state";
 import { downloadFile } from "./utils/download-file";
-import { problemState } from "src/routes/problems/state";
 
 export function createNotebook({
     title,
     description,
+    code,
     language = "python",
     url,
 }: {
     title: string;
     description: string;
+    code: string;
     language?: string;
     url: string;
 }): INotebookContent {
@@ -42,15 +43,19 @@ export function createNotebook({
         `## ${descriptionPrefix} \n\n` + description,
     );
 
+    const partitionCell = createMarkdownCell("---\n\n");
+
     const solutionPrefix = globalState.site === "cn" ? "解答" : "Solution";
-    const partitionCell = createMarkdownCell([
-        "---\n\n",
-        `## ${solutionPrefix}`,
-    ]);
-    const codeCell = createCodeCell(
-        problemState.editor?.getModel()?.getValue() ?? "",
+    const solutionCell = createMarkdownCell(`## ${solutionPrefix}`);
+    const codeCell = createCodeCell(code);
+
+    notebook.cells.push(
+        titleCell,
+        descriptionCell,
+        partitionCell,
+        solutionCell,
+        codeCell,
     );
-    notebook.cells.push(titleCell, descriptionCell, partitionCell, codeCell);
     return notebook;
 }
 

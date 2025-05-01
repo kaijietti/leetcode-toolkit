@@ -6,10 +6,9 @@ import { initDescriptionTab } from "./description";
 import { initEditorialTab } from "./editorial";
 
 async function main() {
-    await problemState.patchMonacoEditor();
-
     const initPromises: Promise<void>[] = [];
 
+    initPromises.push(problemState.patchMonacoEditor());
     initPromises.push(initDescriptionTab());
 
     if (globalState.site === "global") {

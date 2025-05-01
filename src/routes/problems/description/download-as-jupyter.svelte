@@ -7,17 +7,16 @@
     import { problemState } from "../state";
     import { toast } from "svelte-sonner";
 
-    const getLanguage = () => {
-        return problemState.editor?.getModel()?.getLanguageId() ?? "python";
-    };
-
-    async function downloadAsJupyter() {
+    async function saveAsJupyter() {
         async function scrape() {
             const title = await getTitle();
             const notebook = createNotebook({
                 title: title,
                 description: await getDescription(),
-                language: getLanguage(),
+                code: problemState.editor?.getModel()?.getValue() ?? "",
+                language:
+                    problemState.editor?.getModel()?.getLanguageId() ??
+                    "python",
                 url: window.location.href,
             });
             return { notebook, title };
@@ -34,8 +33,8 @@
     }
 </script>
 
-<Button style="color: oklch(51.1% 0.096 186.391)" onclick={downloadAsJupyter}>
+<Button style="color: oklch(51.1% 0.096 186.391)" onclick={saveAsJupyter}>
     {globalState.site === "cn"
-        ? "下载为 Jupyter Notebook (.ipynb)"
-        : "Download as Jupyter Notebook (.ipynb)"}
+        ? "保存为 Jupyter Notebook (.ipynb)"
+        : "Save as Jupyter Notebook (.ipynb)"}
 </Button>

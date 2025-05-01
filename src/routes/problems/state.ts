@@ -1,5 +1,8 @@
 import type { editor } from "monaco-editor";
-import { findMonacoEditor, addIntellisense } from "$lib/intellisense";
+import {
+    findMonacoEditor,
+    addIntellisense,
+} from "src/routes/problems/intellisense";
 import { toast } from "svelte-sonner";
 
 class ProblemPageState {

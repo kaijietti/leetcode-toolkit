@@ -12,12 +12,9 @@
         ); // `div.WRmCx` part is not reliable
         return editorialEl;
     }
-
-    function saveEditorial() {
-        downloadEditorial(findEditorial, getTitle);
-    }
 </script>
 
-<Button onclick={saveEditorial} variant="editorial"
-    >Save Editorial as Markdown</Button
+<Button
+    onclick={() => downloadEditorial(findEditorial, getTitle)}
+    variant="editorial">Save Editorial as Markdown</Button
 >
