@@ -30,10 +30,11 @@ function waitForIframeToLoad(iframe: HTMLIFrameElement) {
                 new URL(iframe.src).hostname === window.location.hostname;
 
             // 1. if not same origin, we don't care if it is loaded, resolve immediately (and because we can't get things inside cross-origin iframe)
-            // 2. if same origin, even if src is set, the document still might be not loaded, so need to check the contentWindow href too to determine if it's loaded
+            // 2. if same origin, even if src is set, the document still might be not loaded, so need to check the contentWindow href AND its readystate to determine if it's loaded (cannot simply check readystate before because about:blank document could be "complete" too)
             if (
                 !isSameOrigin ||
-                iframe.contentWindow?.location?.href !== "about:blank"
+                (iframe.contentWindow?.location?.href !== "about:blank" &&
+                    iframe.contentWindow?.document.readyState == "complete")
             ) {
                 resolve(undefined);
                 return;
@@ -55,6 +56,8 @@ async function prefetchPlayground(editorialEl: HTMLDivElement) {
         await waitForIframeToLoad(iframe);
         const { src, contentDocument } = iframe;
         if (!src.includes("playground")) return;
+
+        console.log(iframe.contentWindow?.location?.href);
 
         const langTab = await findElement("div.lang-btn-set", {
             parent: contentDocument!,
