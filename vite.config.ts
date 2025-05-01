@@ -15,7 +15,7 @@ export default defineConfig({
                     "zh-CN": "LeetCode工具箱",
                 },
                 description: {
-                    "": "Copy problem as Markdown, Download as Jupyter Notebook, Format on Save, Unlock IntelliSense, Find & Save Editorial",
+                    "": "Find & Save Editorial, Copy problem as Markdown or Download as Jupyter Notebook, Format on Save, Unlock IntelliSense",
                     "zh-CN":
                         "复制题目为 Markdown | 下载为 Jupyter Notebook | 保存时自动格式化 | 免费自动补全",
                 },
