@@ -1,9 +1,9 @@
 <script lang="ts" module>
-    export const getDescription = async () => {
+    export const getDescription = async (convertImage = true) => {
         const el = await findElement<HTMLDivElement>(
             "div[data-track-load='description_content']"
         );
-        return htmlToMd(el);
+        return htmlToMd(el, {convertImage});
     };
 </script>
 
@@ -17,7 +17,7 @@
 
     async function copyDescription() {
         const toastId = toast.loading("Scraping problem description...");
-        const desc = await getDescription();
+        const desc = await getDescription(false);
         copy(desc, toastId);
     }
 </script>

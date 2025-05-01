@@ -167,7 +167,9 @@ export async function scrapeEditorial(
     await prefetchPlayground(editorialEl);
     await preFetchSlides(editorialEl);
 
-    const editorial = await htmlToMd(editorialEl, turndown);
+    const editorial = await htmlToMd(editorialEl, {
+        turndownService: turndown,
+    });
 
     playgroundCache.clear();
     slideCache.clear();

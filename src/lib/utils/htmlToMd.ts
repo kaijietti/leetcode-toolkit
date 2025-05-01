@@ -54,15 +54,18 @@ export function createTurndownService() {
 
 export async function htmlToMd(
     node: TurndownService.Node,
-    service = createTurndownService()
+    {
+        turndownService = createTurndownService(),
+        convertImage = true,
+    }: { turndownService?: TurndownService; convertImage?: boolean } = {},
 ) {
     // Prefetch images before converting to Markdown
-    await prefetchImages(node);
+    if (convertImage) await prefetchImages(node);
 
-    const md = service.turndown(node);
+    const md = turndownService.turndown(node);
 
     // Clear the image cache since we don't need it anymore
-    imageCache.clear();
+    if (convertImage) imageCache.clear();
 
     return md;
 }
