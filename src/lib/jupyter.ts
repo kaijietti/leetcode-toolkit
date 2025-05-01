@@ -6,7 +6,7 @@ import type {
 } from "@jupyterlab/nbformat";
 import { globalState } from "./state";
 import { downloadFile } from "./utils/download-file";
-import { problemState } from "src/problems/state";
+import { problemState } from "src/routes/problems/state";
 
 export function createNotebook({
     title,
@@ -33,13 +33,13 @@ export function createNotebook({
         /^(https:\/\/(leetcode\.com|leetcode\.cn)\/problems\/[a-zA-Z0-9_-]+)/;
     const match = url.match(regex);
     const titleCell = createMarkdownCell(
-        `# [${title}](${match ? match[0] : url})`
+        `# [${title}](${match ? match[0] : url})`,
     );
 
     const descriptionPrefix =
         globalState.site === "cn" ? "题目描述" : "Description";
     const descriptionCell = createMarkdownCell(
-        `## ${descriptionPrefix} \n\n` + description
+        `## ${descriptionPrefix} \n\n` + description,
     );
 
     const solutionPrefix = globalState.site === "cn" ? "解答" : "Solution";
@@ -48,7 +48,7 @@ export function createNotebook({
         `## ${solutionPrefix}`,
     ]);
     const codeCell = createCodeCell(
-        problemState.editor?.getModel()?.getValue() ?? ""
+        problemState.editor?.getModel()?.getValue() ?? "",
     );
     notebook.cells.push(titleCell, descriptionCell, partitionCell, codeCell);
     return notebook;

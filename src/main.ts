@@ -1,8 +1,8 @@
 import { mount } from "svelte";
 import "./app.css";
 import { Toaster } from "$lib/utils/toast";
-import { problemPage } from "./problems";
-import { explorePage } from "./explore";
+import { problemPage } from "./routes/problems";
+import { explorePage } from "./routes/explore";
 
 mount(Toaster, {
     target: document.body,
