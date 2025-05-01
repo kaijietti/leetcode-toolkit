@@ -1,9 +1,9 @@
 <script lang="ts" module>
     export const getDescription = async (convertImage = true) => {
         const el = await findElement<HTMLDivElement>(
-            "div[data-track-load='description_content']"
+            "div[data-track-load='description_content']",
         );
-        return htmlToMd(el, {convertImage});
+        return htmlToMd(el, { convertImage });
     };
 </script>
 

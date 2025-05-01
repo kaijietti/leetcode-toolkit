@@ -1,30 +1,27 @@
 import { findElement } from "$lib/utils/elementFinder";
-
-import { GM_registerMenuCommand } from "$";
-
-import { downloadEditorial } from "$lib/editorial-saver";
-
-import { simulateMouseClickReact } from "$lib/utils/click";
-import { getTitle } from "../description/copy-title.svelte";
+import { mount } from "svelte";
+import EditorialButtons from "./EditorialButtons.svelte";
+import { toKebabCase } from "remeda";
+import { CONFIG } from "$lib/config";
 
 export async function initEditorialTab() {
-    GM_registerMenuCommand("Save Problem Editorial", () =>
-        downloadEditorial(findProblemEditorial, getTitle),
-    );
-}
-
-async function findProblemEditorial() {
-    const editorialTabButton = (await findElement("#editorial_tab")).closest(
-        ".flexlayout__tab_button",
-    );
-    if (editorialTabButton) simulateMouseClickReact(editorialTabButton);
-
-    const editorialEl = await findElement<HTMLDivElement>(
-        ".flexlayout__tab:has(#editorial-quick-navigation) div.WRmCx",
+    const editorialTab = await findElement<HTMLDivElement>(
+        ".flexlayout__tab:has(a[href^='/subscribe'], #editorial-quick-navigation)",
         {
-            timeout: 2000,
+            timeout: 0,
+            additionalRule: (el) => el.style.display !== "none",
         },
-    ); // `div.WRmCx` part is not reliable
+    );
 
-    return editorialEl;
+    const buttonsContainer = document.createElement("div");
+    buttonsContainer.style.cssText = "display: contents;";
+    buttonsContainer.setAttribute(
+        "id",
+        toKebabCase(CONFIG.APP_NAME) + "-description",
+    );
+
+    editorialTab.prepend(buttonsContainer);
+    mount(EditorialButtons, {
+        target: buttonsContainer,
+    });
 }
