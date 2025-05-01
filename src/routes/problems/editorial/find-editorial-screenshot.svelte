@@ -41,10 +41,4 @@
     }
 </script>
 
-<Button
-    variant="editorial"
-    class="bg-green-s hover:bg-green-3"
-    onclick={goToEditorialScreenshot}
->
-    Find Screenshot
-</Button>
+<Button onclick={goToEditorialScreenshot}>Find Screenshot</Button>

@@ -16,5 +16,5 @@
 
 <Button
     onclick={() => downloadEditorial(findEditorial, getTitle)}
-    variant="editorial">Save Editorial as Markdown</Button
+    variant="orange">Save Editorial as Markdown</Button
 >

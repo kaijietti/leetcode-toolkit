@@ -33,7 +33,7 @@
     }
 </script>
 
-<Button style="color: oklch(51.1% 0.096 186.391)" onclick={saveAsJupyter}>
+<Button variant="orange" onclick={saveAsJupyter}>
     {globalState.site === "cn"
         ? "保存为 Jupyter Notebook (.ipynb)"
         : "Save as Jupyter Notebook (.ipynb)"}

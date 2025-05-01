@@ -37,18 +37,8 @@
     }
 </script>
 
-<div>
-    <Button
-        onclick={() => downloadEditorial(findExploreEditorial, getExploreTitle)}
-        class="text-lg text-brand-orange"
-        style="height: 2rem"
-    >
-        Save Article as Markdown
-    </Button>
-</div>
-
-<style>
-    div {
-        display: inline-flex;
-    }
-</style>
+<Button
+    onclick={() => downloadEditorial(findExploreEditorial, getExploreTitle)}
+>
+    Save Article as Markdown
+</Button>

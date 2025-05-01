@@ -22,6 +22,6 @@
     }
 </script>
 
-<Button onclick={copyDescription}>
+<Button variant="green" onclick={copyDescription}>
     {globalState.site === "cn" ? "复制描述" : "Copy Description"}
 </Button>
