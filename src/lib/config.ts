@@ -1,3 +1,3 @@
 export const CONFIG = {
-    APP_NAME: "LeetCode Toolbox",
+    APP_NAME: "LeetCode Toolkit",
 };
