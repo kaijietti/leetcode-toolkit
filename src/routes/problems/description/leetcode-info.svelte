@@ -25,7 +25,7 @@
 
         // 找到包含“相关标签”的文字节点
         const label = await findElement(
-            'div.text-body.text-text-primary.dark\\:text-text-primary'
+            "div.text-body.text-text-primary.dark\\:text-text-primary",
         );
 
         if (!label) return [];
@@ -57,7 +57,8 @@
     export const getDifficulty = async (): Promise<string> => {
         await navigateToDescription();
 
-        const difficultySelector = 'div.text-difficulty-easy, div.text-difficulty-medium, div.text-difficulty-hard';
+        const difficultySelector =
+            "div.text-difficulty-easy, div.text-difficulty-medium, div.text-difficulty-hard";
 
         const el = await findElement(difficultySelector);
 
@@ -81,17 +82,20 @@
 
     // 写一个工具函数，根据 title 解析信息从而决定在 ob vault 中的路径，文件名等等信息，也就是说返回值要支持能够 {a, b} 这种语法提取
     export const getObsidianPath = async (title: string) => {
-        const {vaultName, problemFolderTemplate} = await getUserConfig()
+        const { vaultName, problemFolderTemplate } = await getUserConfig();
         // TODO: 看是否需要清理 title
         const newTitle = title;
         // template 中的 {{title}} 替换成 newTitle
-        const problemFolder = problemFolderTemplate.replace(/{{title}}/g, newTitle);
+        const problemFolder = problemFolderTemplate.replace(
+            /{{title}}/g,
+            newTitle,
+        );
 
         return {
             newTitle,
             vaultName,
             problemFolder,
-        }
+        };
     };
 
     export const getCode = () => {
@@ -101,6 +105,5 @@
             code,
             language,
         };
-    }
-
+    };
 </script>

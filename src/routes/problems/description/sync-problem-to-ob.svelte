@@ -24,7 +24,7 @@
             toast.error("获取难度失败，请检查难度格式");
             return;
         }
-        
+
         let tags = await getTags();
         // 增加我们的自定义标签
         tags.push("LeetCode");
@@ -42,7 +42,8 @@ ${tagString}
 ${description}
 `;
 
-        const {vaultName, problemFolder, newTitle} = await getObsidianPath(title);
+        const { vaultName, problemFolder, newTitle } =
+            await getObsidianPath(title);
         const filepath = `${problemFolder}/${newTitle}.md`;
 
         const uri = `obsidian://advanced-uri?vault=${encodeURIComponent(vaultName)}&filepath=${encodeURIComponent(filepath)}&data=${encodeURIComponent(content)}&mode=overwrite`;

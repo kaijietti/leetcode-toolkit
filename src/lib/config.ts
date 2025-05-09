@@ -30,7 +30,7 @@ export const setupUserConfig = async () => {
     const current = await getUserConfig();
     const input = prompt(
         "请输入你的配置（JSON 格式）",
-        JSON.stringify(current, null, 2)
+        JSON.stringify(current, null, 2),
     );
     if (input) {
         try {
@@ -53,14 +53,16 @@ export const setupUserConfig = async () => {
             // 检查 problemFolderTemplate 中包含 {{title}}
             if (!parsed.problemFolderTemplate.includes("{{title}}")) {
                 toast.error(
-                    "problemFolderTemplate 必须包含 {{title}} 占位符！"
+                    "problemFolderTemplate 必须包含 {{title}} 占位符！",
                 );
                 return;
             }
             await GM.setValue("obsidianConfig", JSON.stringify(parsed));
             toast.success("配置已保存！");
         } catch (e) {
-            toast.error("配置格式错误！");
+            // 输出错误信息
+            toast.error("配置格式错误！请检查 JSON 格式。");
+            console.error("配置格式错误！", e);
         }
     }
 };

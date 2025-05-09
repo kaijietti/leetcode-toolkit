@@ -2,7 +2,7 @@
     import Button from "$lib/components/Button.svelte";
     import { globalState } from "$lib/state";
     import { toast } from "$lib/utils/toast";
-    import { getCode, getObsidianPath, getTags, getTitle } from "./leetcode-info.svelte";
+    import { getCode, getObsidianPath, getTitle } from "./leetcode-info.svelte";
 
     function extractMethodFromCode(code: string): string {
         const match = code.match(/###\s*解法[:：]\s*(.+)/);
@@ -11,7 +11,7 @@
 
     async function saveToObsidian() {
         let title = await getTitle();
-        let {code, language} = getCode();
+        let { code, language } = getCode();
 
         // 合法性检查
         if (!title) {
@@ -32,7 +32,7 @@
             toast.error("获取解法失败，请检查解法格式");
             return;
         }
-        
+
         // 获取当前题目的链接
         const currentUrl = window.location.href;
 
@@ -44,7 +44,8 @@ ${code}
 \`\`\`
 `;
 
-        const {vaultName, problemFolder, newTitle} = await getObsidianPath(title);
+        const { vaultName, problemFolder, newTitle } =
+            await getObsidianPath(title);
         const filepath = `${problemFolder}/${newTitle}-${method}.md`;
 
         const uri = `obsidian://advanced-uri?vault=${encodeURIComponent(vaultName)}&filepath=${encodeURIComponent(filepath)}&data=${encodeURIComponent(content)}&mode=new`;

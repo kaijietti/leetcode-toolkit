@@ -44,7 +44,7 @@ export default defineConfig({
                     "GM_getValue",
                     "GM_setValue",
                     "GM_registerMenuCommand",
-                    "GM_xmlhttpRequest"
+                    "GM_xmlhttpRequest",
                 ],
             },
         }),
