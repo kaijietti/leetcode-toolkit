@@ -40,7 +40,12 @@ export default defineConfig({
                         "https://raw.githubusercontent.com/akhilkammila/leetcode-screenshotter/refs/heads/main/ReadMe.md",
                 },
                 connect: ["assets.leetcode.com", "*"],
-                grant: "GM_xmlhttpRequest",
+                grant: [
+                    "GM_getValue",
+                    "GM_setValue",
+                    "GM_registerMenuCommand",
+                    "GM_xmlhttpRequest"
+                ],
             },
         }),
     ],
