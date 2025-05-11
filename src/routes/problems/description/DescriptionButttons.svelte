@@ -11,3 +11,11 @@
     <SyncProblemToOb />
     <SyncSolutionToOb />
 </div>
+
+<style>
+    div {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+</style>

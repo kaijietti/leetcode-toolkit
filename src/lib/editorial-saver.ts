@@ -15,7 +15,8 @@ turndown.addRule("remove-heading-link", {
 
 // do not process math equation, save html as is
 turndown.addRule("save-math-as-is", {
-    filter: (node) => node.nodeName === "SPAN" && node.matches(".math, .maths"),
+    filter: (node) =>
+        node.nodeName === "SPAN" && node.matches(".math, .maths, .math-tex"),
     replacement: (_content, node) => (node as HTMLSpanElement).outerHTML,
 });
 
