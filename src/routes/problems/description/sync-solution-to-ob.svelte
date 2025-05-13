@@ -35,12 +35,14 @@
 
         // 获取当前题目的链接
         const currentUrl = window.location.href;
-
+        // advanced-uri 貌似会对内容进行两次decodeURIComponent，如果代码里面有 % 会导致问题，比如取模运算。
+        // 这里对代码进行二次编码，避免问题。
+        const safeCode = encodeURIComponent(code);
         const content = `## [${title}](${currentUrl})
 [[${title}]]
 ## Code
 \`\`\`${language}
-${code}
+${safeCode}
 \`\`\`
 `;
 
