@@ -2,16 +2,22 @@
     import Button from "$lib/components/Button.svelte";
     import { globalState } from "$lib/state";
     import { toast } from "$lib/utils/toast";
-    import { getCode, getObsidianPath, getTitle } from "./leetcode-info.svelte";
+    import { getCode, getObsidianPath, getTitle, getTags, getDifficulty } from "./leetcode-info.svelte";
 
     function extractMethodFromCode(code: string): string {
         const match = code.match(/###\s*解法[:：]\s*(.+)/);
         return match ? match[1].trim() : "";
     }
 
+    function extractMethodClassification(code: string): string {
+        const match = code.match(/###\s*分类[:：]\s*(.+)/);
+        return match ? match[1].trim() : "";
+    }
+
     async function saveToObsidian() {
         let title = await getTitle();
         let { code, language } = getCode();
+        let difficulty = await getDifficulty();
 
         // 合法性检查
         if (!title) {
@@ -27,11 +33,31 @@
             return;
         }
 
+        if (!difficulty) {
+            toast.error("获取难度失败，请检查难度格式");
+            return;
+        }
+
         let method = extractMethodFromCode(code);
         if (!method) {
             toast.error("获取解法失败，请检查解法格式");
             return;
         }
+
+        let classification = extractMethodClassification(code);
+        if (!classification) {
+            toast.error("获取分类失败，请检查分类格式");
+            return;
+        }
+
+        let tags = await getTags();
+        // 增加我们的自定义标签
+        tags.push("LeetCode");
+        tags.push("LeetCode-难度-" + difficulty);
+        tags.push("LeetCode-解法-" + method);
+        tags.push("LeetCode-分类-" + classification);
+        // 将tags按照 "#{tag}" 的方式构造，然后空格拼接，从而形成ob可以识别的格式
+        const tagString = tags.map((tag) => `#${tag}`).join(" ");
 
         // 获取当前题目的链接
         const currentUrl = window.location.href;
@@ -40,6 +66,7 @@
         const safeCode = encodeURIComponent(code);
         const content = `## [${title}](${currentUrl})
 [[${title}]]
+${tagString}
 ## Code
 \`\`\`${language}
 ${safeCode}
